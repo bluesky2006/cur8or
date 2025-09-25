@@ -1,12 +1,11 @@
+import SearchBar from "../../components/SearchBar";
+
 export default function Home() {
   return (
-    <div>
+    <div className="flex items-center justify-center min-h-screen p-2">
       <main>
-        <p>Hi</p>
+        <SearchBar />
       </main>
-      <footer>
-        <p>Footer</p>
-      </footer>
     </div>
   );
 }
