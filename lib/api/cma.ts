@@ -1,3 +1,5 @@
+import { Artwork } from "../../types/types";
+
 const BASE_URL = "https://openaccess-api.clevelandart.org/api";
 
 export async function cmaGetArtworkById(id: number) {
@@ -11,21 +13,15 @@ export async function cmaGetArtworkById(id: number) {
   return res.json();
 }
 
-export async function cmaSearchArtworks(query: string, limit = 10) {
-  const url = `${BASE_URL}/artworks?limit=${limit}&q=${query}`;
-  const res = await fetch(url);
+export async function cmaSearchArtworks(query: string, skip = 0, limit = 9): Promise<Artwork[]> {
+  const res = await fetch(
+    `${BASE_URL}/artworks?limit=${limit}&skip=${skip}&q=${encodeURIComponent(query)}`
+  );
+  const json = await res.json();
 
   if (!res.ok) {
     throw new Error(`API error: ${res.status}`);
   }
 
-  return res.json();
+  return (Array.isArray(json.data) ? json.data : []) as Artwork[];
 }
-
-// cmaGetArtworkById(130707)
-//   .then((artwork) => console.log(artwork, "<artwork"))
-//   .catch((error) => console.error(error, "Error yo"));
-
-// cmaSearchArtworks("song xu", 5)
-//   .then((response) => console.log(response, "<search response"))
-//   .catch((error) => console.error(error));
