@@ -2,17 +2,6 @@ import { Artwork } from "../../types/types";
 
 const BASE_URL = "https://openaccess-api.clevelandart.org/api";
 
-export async function cmaGetArtworkById(id: number) {
-  const url = `${BASE_URL}/artworks/${id}`;
-  const res = await fetch(url);
-
-  if (!res.ok) {
-    throw new Error(`API error: ${res.status}`);
-  }
-
-  return res.json();
-}
-
 export async function cmaSearchArtworks(query: string, skip = 0, limit = 9): Promise<Artwork[]> {
   const res = await fetch(
     `${BASE_URL}/artworks?limit=${limit}&skip=${skip}&q=${encodeURIComponent(query)}`
