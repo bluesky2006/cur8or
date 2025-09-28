@@ -8,7 +8,7 @@ export default function SearchBar({ query, setQuery, handleSearch }: SearchBarPr
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search artworks..."
-        className="border border-gray-300 rounded-full px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-yellow-500"
+        className="border border-gray-300 rounded-full px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-gray-300"
       />
       <button
         type="submit"
