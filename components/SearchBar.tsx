@@ -35,7 +35,7 @@ export default function SearchBar({
           onChange={(e) => setShowWithImagesOnly(e.target.checked)}
           className="form-checkbox border-gray-300 text-yellow-500 focus:ring-yellow-400 accent-yellow-500 scale-125"
         />
-        Results with images only
+        <span className="relative top-[1px]">Results with images only</span>
       </label>
     </form>
   );
