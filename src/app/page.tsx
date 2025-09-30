@@ -4,15 +4,16 @@ import { useState } from "react";
 import SearchBar from "../../components/SearchBar";
 import LogoHeader from "../../components/LogoHeader";
 import ArtworkList from "../../components/ArtworkList";
-import { cmaSearchArtworks } from "../../lib/api/cma";
-import type { Artwork } from "../../types/types";
+import { searchAllMuseums } from "../../lib/api/searchAllMuseums";
+import type { NormalisedArtwork } from "../../types/artTypes";
 
 export default function Home() {
   const [query, setQuery] = useState<string>("");
-  const [results, setResults] = useState<Artwork[]>([]);
+  const [results, setResults] = useState<NormalisedArtwork[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [skip, setSkip] = useState<number>(0);
+  const [cmaSkip, setCmaSkip] = useState(0);
+  const [siStart, setSiStart] = useState(0);
   const [hasSearched, setHasSearched] = useState(false);
   const limit = 9;
 
@@ -27,9 +28,10 @@ export default function Home() {
     setHasSearched(true);
 
     try {
-      const artworks = await cmaSearchArtworks(query, 0, limit);
+      const artworks = await searchAllMuseums(query, 0, 0, limit);
       setResults(artworks);
-      setSkip(limit);
+      setCmaSkip(limit);
+      setSiStart(limit);
     } catch {
       setError("Something went wrong with your search.");
     } finally {
@@ -40,9 +42,10 @@ export default function Home() {
   const loadMore = async () => {
     setLoading(true);
     try {
-      const moreArtworks = await cmaSearchArtworks(query, skip, limit);
+      const moreArtworks = await searchAllMuseums(query, cmaSkip, siStart, limit);
       setResults((prev) => [...prev, ...moreArtworks]);
-      setSkip(skip + limit);
+      setCmaSkip(cmaSkip + limit);
+      setSiStart(siStart + limit);
     } catch {
       setError("Could not load more results.");
     } finally {
@@ -53,27 +56,33 @@ export default function Home() {
   return (
     <div className="flex items-center justify-center min-h-screen p-8">
       <main className="w-full max-w-6xl">
-        <LogoHeader visible={results.length === 0} />
         <div
           className={`
-            transition-all duration-700 ease-in-out max-w-xl mx-auto
-            ${results.length > 0 ? "mt-0 delay-500" : "mt-20 delay-0"}
-          `}
+    transition-all duration-700 ease-in-out max-w-xl mx-auto
+    ${results.length > 0 ? "mt-10 delay-100" : "mt-20 delay-0"}
+  `}
         >
-          <SearchBar
-            query={query}
-            setQuery={(val: string) => {
-              setQuery(val);
-              if (val.trim() === "") {
-                setHasSearched(false);
-                setResults([]);
-                setError(null);
-              }
-            }}
-            handleSearch={handleSearch}
-          />
+          <div
+            className={`
+      flex items-center gap-4
+      ${results.length === 0 ? "flex-col justify-center text-center" : "flex-row"}
+    `}
+          >
+            <LogoHeader big={results.length === 0} />
+            <SearchBar
+              query={query}
+              setQuery={(val: string) => {
+                setQuery(val);
+                if (val.trim() === "") {
+                  setHasSearched(false);
+                  setResults([]);
+                  setError(null);
+                }
+              }}
+              handleSearch={handleSearch}
+            />
+          </div>
         </div>
-
         {error && <p className="mt-4 text-red-600">{error}</p>}
 
         {!loading && hasSearched && results.length === 0 && !error && (
