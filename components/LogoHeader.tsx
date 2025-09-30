@@ -1,13 +1,12 @@
-export default function LogoHeader({ visible }: { visible: boolean }) {
+export default function LogoHeader({ big }: { big: boolean }) {
   return (
-    <header
+    <div
       className={`
-        text-center text-8xl font-bold text-yellow-500
-        transition-opacity duration-800 ease-in-out
-        ${visible ? "opacity-100" : "opacity-0"}
+        font-bold text-yellow-500 transition-all duration-700 ease-in-out
+        ${big ? "text-8xl text-center mb-10" : "text-4xl mb-0"}
       `}
     >
       <p>cur8or</p>
-    </header>
+    </div>
   );
 }
