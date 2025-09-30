@@ -24,11 +24,13 @@ export interface ArtworkListProps {
   results: NormalisedArtwork[];
 }
 
-export interface SearchBarProps {
+export type SearchBarProps = {
   query: string;
-  setQuery: (val: string) => void; // simpler
+  setQuery: (query: string) => void;
   handleSearch: (e: React.FormEvent<HTMLFormElement>) => void;
-}
+  showWithImagesOnly: boolean;
+  setShowWithImagesOnly: (val: boolean) => void;
+};
 
 export type NormalisedArtwork = {
   id: string;
