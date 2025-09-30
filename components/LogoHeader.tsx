@@ -6,7 +6,7 @@ export default function LogoHeader({ big }: { big: boolean }) {
         ${big ? "text-8xl text-center mb-10" : "text-4xl mb-0"}
       `}
     >
-      <p>cur8or</p>
+      <h1>cur8or</h1>
     </div>
   );
 }

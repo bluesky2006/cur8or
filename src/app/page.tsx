@@ -57,14 +57,9 @@ export default function Home() {
   const filteredResults = showWithImagesOnly ? results.filter((art) => !!art.imageUrl) : results;
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-8">
+    <div className="flex items-center justify-center min-h-screen p-4">
       <main className="w-full max-w-6xl">
-        <div
-          className={`
-    transition-all duration-700 ease-in-out max-w-xl mx-auto
-    ${results.length > 0 ? "mt-10 delay-100" : "mt-20 delay-0"}
-  `}
-        >
+        <div className={"transition-all duration-700 ease-in-out max-w-xl mx-auto"}>
           <div
             className={`
       flex items-center gap-4

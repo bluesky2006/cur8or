@@ -28,14 +28,14 @@ export default function SearchBar({
         </button>
       </div>
 
-      <label className="text-sm flex items-center gap-2 pl-1 mt-1 sm:mt-0">
+      <label className="text-sm flex items-center gap-3 pl-1 mt-1 sm:mt-0 leading-tight">
         <input
           type="checkbox"
           checked={showWithImagesOnly}
           onChange={(e) => setShowWithImagesOnly(e.target.checked)}
-          className="form-checkbox rounded border-gray-300 text-yellow-500 focus:ring-yellow-400"
+          className="form-checkbox border-gray-300 text-yellow-500 focus:ring-yellow-400 accent-yellow-500 scale-125"
         />
-        Only show results with images
+        Results with images only
       </label>
     </form>
   );
