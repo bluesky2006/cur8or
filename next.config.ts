@@ -2,7 +2,23 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["openaccess-cdn.clevelandart.org", "ids.si.edu"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "openaccess-cdn.clevelandart.org",
+        pathname: "/**", // all CMA images
+      },
+      {
+        protocol: "https",
+        hostname: "ids.si.edu",
+        pathname: "/**", // all Smithsonian IDS images
+      },
+      {
+        protocol: "https",
+        hostname: "doi.org",
+        pathname: "/**", // Smithsonian DOI fallback images
+      },
+    ],
   },
 };
 
