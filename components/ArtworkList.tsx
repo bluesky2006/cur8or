@@ -1,4 +1,4 @@
-import type { ArtworkListProps } from "../types/types";
+import type { ArtworkListProps } from "../types/artTypes";
 import ArtworkItem from "./ArtworkItem";
 
 export default function ArtworkList({ results }: ArtworkListProps) {
