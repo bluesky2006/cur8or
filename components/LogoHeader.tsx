@@ -1,12 +1,16 @@
-export default function LogoHeader({ big }: { big: boolean }) {
+import { LogoHeaderProps } from "../types/artTypes";
+
+export default function LogoHeader({ big, resetSearch }: LogoHeaderProps) {
   return (
-    <div
+    <header
+      onClick={resetSearch}
       className={`
-        font-bold text-yellow-500 transition-all duration-700 ease-in-out
-        ${big ? "text-8xl text-center mb-10" : "text-4xl mb-0"}
-      `}
+  text-yellow-500 font-bold cursor-pointer transition-all duration-300
+  hover:text-yellow-600
+  ${big ? "text-8xl" : "text-4xl"}
+`}
     >
-      <h1>cur8or</h1>
-    </div>
+      <p>cur8or</p>
+    </header>
   );
 }

@@ -41,3 +41,8 @@ export type NormalisedArtwork = {
   date: string;
   imageUrl: string;
 };
+
+export type LogoHeaderProps = {
+  big: boolean;
+  resetSearch?: () => void;
+};
