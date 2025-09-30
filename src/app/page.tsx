@@ -15,7 +15,8 @@ export default function Home() {
   const [cmaSkip, setCmaSkip] = useState(0);
   const [siStart, setSiStart] = useState(0);
   const [hasSearched, setHasSearched] = useState(false);
-  const limit = 9;
+  const [showWithImagesOnly, setShowWithImagesOnly] = useState(false);
+  const limit = 6;
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,6 +54,8 @@ export default function Home() {
     }
   };
 
+  const filteredResults = showWithImagesOnly ? results.filter((art) => !!art.imageUrl) : results;
+
   return (
     <div className="flex items-center justify-center min-h-screen p-8">
       <main className="w-full max-w-6xl">
@@ -80,6 +83,8 @@ export default function Home() {
                 }
               }}
               handleSearch={handleSearch}
+              showWithImagesOnly={showWithImagesOnly}
+              setShowWithImagesOnly={setShowWithImagesOnly}
             />
           </div>
         </div>
@@ -89,9 +94,11 @@ export default function Home() {
           <p className="mt-6 text-center text-gray-600">No results found for “{query}”.</p>
         )}
 
-        {results.length > 0 && <p className="mt-6">Showing {results.length} results</p>}
+        {filteredResults.length > 0 && (
+          <p className="mt-6">Showing {filteredResults.length} results</p>
+        )}
 
-        <ArtworkList results={results} />
+        <ArtworkList results={filteredResults} />
 
         {results.length > 0 && (
           <div className="mt-6 flex justify-center">
