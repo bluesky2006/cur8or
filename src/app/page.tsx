@@ -1,88 +1,54 @@
 "use client";
 
-import { useState } from "react";
 import SearchBar from "../../components/SearchBar";
 import LogoHeader from "../../components/LogoHeader";
 import ArtworkList from "../../components/ArtworkList";
-import { searchAllMuseums } from "../../lib/api/searchAllMuseums";
-import type { NormalisedArtwork } from "../../types/artTypes";
+import { useSearchState } from "../../lib/hooks/useSearchState";
 
 export default function Home() {
-  const [query, setQuery] = useState<string>("");
-  const [results, setResults] = useState<NormalisedArtwork[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [cmaSkip, setCmaSkip] = useState(0);
-  const [siStart, setSiStart] = useState(0);
-  const [hasSearched, setHasSearched] = useState(false);
-  const [showWithImagesOnly, setShowWithImagesOnly] = useState(false);
-  const limit = 6;
-
-  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!query.trim()) {
-      setError("Please enter a search term.");
-      return;
-    }
-    setLoading(true);
-    setError(null);
-    setHasSearched(true);
-
-    try {
-      const artworks = await searchAllMuseums(query, 0, 0, limit);
-      setResults(artworks);
-      setCmaSkip(limit);
-      setSiStart(limit);
-    } catch {
-      setError("Something went wrong with your search.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const loadMore = async () => {
-    setLoading(true);
-    try {
-      const moreArtworks = await searchAllMuseums(query, cmaSkip, siStart, limit);
-      setResults((prev) => [...prev, ...moreArtworks]);
-      setCmaSkip(cmaSkip + limit);
-      setSiStart(siStart + limit);
-    } catch {
-      setError("Could not load more results.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const filteredResults = showWithImagesOnly ? results.filter((art) => !!art.imageUrl) : results;
+  const {
+    query,
+    setQuery,
+    results,
+    filteredResults,
+    loading,
+    error,
+    hasSearched,
+    showWithImagesOnly,
+    setShowWithImagesOnly,
+    handleSearch,
+    loadMore,
+    resetSearch,
+  } = useSearchState(6);
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
       <main className="w-full max-w-6xl">
-        <div className={"transition-all duration-700 ease-in-out max-w-xl mx-auto"}>
+        <div className="w-full">
           <div
             className={`
-      flex items-center gap-4
-      ${results.length === 0 ? "flex-col justify-center text-center" : "flex-row"}
-    `}
+              flex gap-4
+              ${results.length === 0 ? "flex-col items-center text-center" : "flex-row items-start"}
+            `}
           >
-            <LogoHeader big={results.length === 0} />
-            <SearchBar
-              query={query}
-              setQuery={(val: string) => {
-                setQuery(val);
-                if (val.trim() === "") {
-                  setHasSearched(false);
-                  setResults([]);
-                  setError(null);
-                }
-              }}
-              handleSearch={handleSearch}
-              showWithImagesOnly={showWithImagesOnly}
-              setShowWithImagesOnly={setShowWithImagesOnly}
-            />
+            <LogoHeader big={results.length === 0} resetSearch={resetSearch} />
+            <div className="w-full max-w-2xl">
+              <SearchBar
+                query={query}
+                setQuery={(val: string) => {
+                  setQuery(val);
+                  if (val.trim() === "") {
+                    resetSearch();
+                  }
+                }}
+                handleSearch={handleSearch}
+                showWithImagesOnly={showWithImagesOnly}
+                setShowWithImagesOnly={setShowWithImagesOnly}
+              />
+            </div>
           </div>
         </div>
+
         {error && <p className="mt-4 text-red-600">{error}</p>}
 
         {!loading && hasSearched && results.length === 0 && !error && (
