@@ -34,7 +34,7 @@ export type SearchBarProps = {
 
 export type NormalisedArtwork = {
   id: string;
-  source: "si" | "cma";
+  source: "aic" | "cma";
   title: string;
   artist: string;
   description: string;
