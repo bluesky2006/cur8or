@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBar from "../../components/SearchBar";
 import LogoHeader from "../../components/LogoHeader";
 import ArtworkList from "../../components/ArtworkList";
@@ -24,20 +24,38 @@ export default function Home() {
     resetSearch,
   } = useSearchState(6);
 
-  const { exhibition, removeFromExhibition } = useExhibition();
+  const { exhibition } = useExhibition();
   const [showExhibition, setShowExhibition] = useState(false);
+
+  const hasResults = results.length > 0;
+
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
-      <main className="w-full max-w-6xl">
-        {/* header & search */}
-        <div className="w-full">
+      <main className={`w-full max-w-6xl ${hasResults ? "pt-16" : ""}`}>
+        {/* Header */}
+        <div
+          className={`${
+            hasResults
+              ? `fixed top-0 left-0 w-full z-50 bg-white ${scrolled ? "shadow" : ""}`
+              : "w-full"
+          }`}
+        >
           <div
-            className={`flex gap-4 items-center ${
-              results.length === 0 ? "flex-col text-center" : "flex-row"
-            }`}
+            className={`max-w-6xl mx-auto flex gap-4 items-center p-4
+              ${!hasResults ? "flex-col text-center" : "flex-row"}
+            `}
           >
-            <LogoHeader big={results.length === 0} resetSearch={resetSearch} />
+            <LogoHeader big={!hasResults} resetSearch={resetSearch} />
             <div className="w-full max-w-2xl">
               <SearchBar
                 query={query}
@@ -50,29 +68,28 @@ export default function Home() {
                 setShowWithImagesOnly={setShowWithImagesOnly}
               />
             </div>
-            {results.length > 0 && (
+            {hasResults && (
               <button
                 type="button"
                 onClick={() => setShowExhibition(true)}
                 className="ml-auto flex bg-white text-yellow-500 border-2 border-yellow-500 px-6 py-2 rounded 
-               hover:bg-yellow-500 hover:text-white transition-colors cursor-pointer"
+                  hover:bg-yellow-500 hover:text-white transition-colors cursor-pointer"
               >
-                My exhibition ({exhibition.length})
+                My Exhibition ({exhibition.length})
               </button>
             )}
           </div>
         </div>
 
-        {/* error + results */}
+        {/* Search feedback */}
         {error && <p className="mt-4 text-red-600">{error}</p>}
         {!loading && hasSearched && results.length === 0 && !error && (
           <p className="mt-6 text-center text-gray-600">No results found for “{query}”.</p>
         )}
-        {filteredResults.length > 0 && (
-          <p className="mt-6">Showing {filteredResults.length} results</p>
-        )}
+
+        {/* Results */}
         <ArtworkList results={filteredResults} />
-        {results.length > 0 && (
+        {hasResults && (
           <div className="mt-6 flex justify-center">
             <button
               onClick={loadMore}
@@ -85,7 +102,7 @@ export default function Home() {
         )}
       </main>
 
-      {/* Drawer as separate component */}
+      {/* Exhibition drawer */}
       <ExhibitionDrawer show={showExhibition} onClose={() => setShowExhibition(false)} />
     </div>
   );
