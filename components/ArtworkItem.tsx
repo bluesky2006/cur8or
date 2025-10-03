@@ -38,7 +38,7 @@ export default function ArtworkItem({ art }: ArtworkItemProps) {
           <span className="shrink-0">{alreadyAdded ? "−" : "+"}</span>
           <span
             className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 
-               transition-all duration-300 whitespace-nowrap"
+               transition-all duration-300 whitespace-nowrap text-xs"
           >
             {alreadyAdded ? "Remove from exhibition" : "Add to exhibition"}
           </span>
