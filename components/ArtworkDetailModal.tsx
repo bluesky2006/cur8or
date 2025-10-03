@@ -33,9 +33,11 @@ export default function ArtworkDetailModal({ art, onClose }) {
         <div className="w-1/2 p-6 flex flex-col overflow-y-auto">
           <h3 className="text-xl font-semibold mb-2 leading-snug">{art.title}</h3>
           <p className="text-sm text-gray-700 mb-1">{art.artist}</p>
-          <p className="text-sm text-gray-500 mb-4">{art.date}</p>
-          <p className="text-sm text-gray-600">{art.description}</p>
-
+          <p className="text-sm text-gray-500 mb-4 pb-2 border-b border-gray-300">{art.date}</p>
+          <div
+            className="text-sm text-gray-600 [&>p]:mb-4"
+            dangerouslySetInnerHTML={{ __html: art.description }}
+          />
           {alreadyAdded ? (
             <button
               onClick={() => removeFromExhibition(art.id)}
