@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useExhibition } from "../context/ExhibitionContext";
 
 export default function ArtworkDetailModal({ art, onClose }) {
-  const { exhibition, addToExhibition } = useExhibition();
+  const { exhibition, addToExhibition, removeFromExhibition } = useExhibition();
 
   const alreadyAdded = exhibition.some((a) => a.id === art.id);
 
@@ -36,18 +36,21 @@ export default function ArtworkDetailModal({ art, onClose }) {
           <p className="text-sm text-gray-500 mb-4">{art.date}</p>
           <p className="text-sm text-gray-600">{art.description}</p>
 
-          <button
-            onClick={() => addToExhibition(art)}
-            disabled={alreadyAdded}
-            className={`mt-4 text-md font-semibold rounded py-2
-              ${
-                alreadyAdded
-                  ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-                  : "bg-yellow-500 text-white hover:bg-yellow-600"
-              }`}
-          >
-            {alreadyAdded ? "Already in exhibition" : "+ Add to exhibition"}
-          </button>
+          {alreadyAdded ? (
+            <button
+              onClick={() => removeFromExhibition(art.id)}
+              className="mt-4 text-md font-semibold rounded py-2 bg-red-500 text-white hover:bg-red-600"
+            >
+              Remove from exhibition
+            </button>
+          ) : (
+            <button
+              onClick={() => addToExhibition(art)}
+              className="mt-4 text-md font-semibold rounded py-2 bg-yellow-500 text-white hover:bg-yellow-600"
+            >
+              Add to exhibition
+            </button>
+          )}
         </div>
       </div>
     </div>
