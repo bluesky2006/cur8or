@@ -1,4 +1,4 @@
-import { cmaSearchArtworks } from "./cmaSearch";
+import { cmaSearchArtworks } from "./cma";
 import { cmaToNormalisedArtwork } from "../../lib/adapters/cmaAdapter";
 
 import { aicSearchArtworks, aicFetchArtworkById } from "./aic";
