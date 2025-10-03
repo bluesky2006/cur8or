@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import LogoHeader from "./LogoHeader";
+import LogoHeader from "./Logo";
 import SearchBar from "./SearchBar";
 import MyExhibitionButton from "./MyExhibitionButton";
+import ImageToggle from "./ImageToggle";
 
 export default function Header({
   query,
@@ -43,12 +44,19 @@ export default function Header({
       }`}
     >
       <div
-        className={`max-w-6xl mx-auto flex gap-4 items-center p-4
-          ${!hasResults ? "flex-col text-center" : "flex-row"}
-        `}
+        className={`max-w-6xl mx-auto flex items-center gap-6 p-4 ${
+          !hasResults ? "flex-col text-center" : "flex-row"
+        }`}
       >
+        {/* Logo */}
         <LogoHeader big={!hasResults} resetSearch={resetSearch} />
-        <div className="w-full max-w-2xl">
+
+        {/* Search Bar with conditional width */}
+        <div
+          className={
+            hasResults ? "flex-1 max-w-xl" : "w-full max-w-2xl mx-auto" // much wider on initial view
+          }
+        >
           <SearchBar
             query={query}
             setQuery={(val: string) => {
@@ -56,12 +64,18 @@ export default function Header({
               if (val.trim() === "") resetSearch();
             }}
             handleSearch={handleSearch}
-            showWithImagesOnly={showWithImagesOnly}
-            setShowWithImagesOnly={setShowWithImagesOnly}
           />
         </div>
+
+        {/* Right-side controls only when results are present */}
         {hasResults && (
-          <MyExhibitionButton exhibitionCount={exhibitionCount} onClick={onShowExhibition} />
+          <div className="flex items-center gap-6 ml-auto">
+            <ImageToggle
+              showWithImagesOnly={showWithImagesOnly}
+              setShowWithImagesOnly={setShowWithImagesOnly}
+            />
+            <MyExhibitionButton exhibitionCount={exhibitionCount} onClick={onShowExhibition} />
+          </div>
         )}
       </div>
     </div>
