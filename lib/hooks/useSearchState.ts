@@ -9,7 +9,6 @@ export function useSearchState(limit = 6) {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [cmaSkip, setCmaSkip] = useState(0);
-  const [siStart, setSiStart] = useState(0);
   const [hasSearched, setHasSearched] = useState(false);
   const [showWithImagesOnly, setShowWithImagesOnly] = useState(false);
 
@@ -27,10 +26,9 @@ export function useSearchState(limit = 6) {
     setHasSearched(true);
 
     try {
-      const artworks = await searchAllMuseums(query, 0, 0, limit);
+      const artworks = await searchAllMuseums(query, 0, limit);
       setResults(artworks);
       setCmaSkip(limit);
-      setSiStart(limit);
     } catch {
       setError("Something went wrong with your search.");
     } finally {
@@ -41,10 +39,9 @@ export function useSearchState(limit = 6) {
   const loadMore = async () => {
     setLoading(true);
     try {
-      const moreArtworks = await searchAllMuseums(query, cmaSkip, siStart, limit);
+      const moreArtworks = await searchAllMuseums(query, cmaSkip, limit);
       setResults((prev) => [...prev, ...moreArtworks]);
       setCmaSkip(cmaSkip + limit);
-      setSiStart(siStart + limit);
     } catch {
       setError("Could not load more results.");
     } finally {
@@ -60,9 +57,7 @@ export function useSearchState(limit = 6) {
     clearExhibition();
   };
 
-  const filteredResults = showWithImagesOnly
-    ? results.filter((art) => !!art.imageUrl)
-    : results;
+  const filteredResults = showWithImagesOnly ? results.filter((art) => !!art.imageUrl) : results;
 
   return {
     query,

@@ -10,13 +10,8 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "ids.si.edu",
+        hostname: "www.artic.edu",
         pathname: "/**", // all Smithsonian IDS images
-      },
-      {
-        protocol: "https",
-        hostname: "doi.org",
-        pathname: "/**", // Smithsonian DOI fallback images
       },
     ],
   },

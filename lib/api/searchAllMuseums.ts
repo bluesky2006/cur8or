@@ -1,19 +1,19 @@
 import { cmaSearchArtworks } from "./cmaSearch";
 import { cmaToNormalisedArtwork } from "../../lib/adapters/cmaAdapter";
 
-import { siSearchArtworks } from "./siSearch";
-import { siToNormalisedArtwork } from "../../lib/adapters/siAdapter";
+import { aicSearchArtworks, aicFetchArtworkById } from "./aic";
+import { aicToNormalisedArtwork } from "../../lib/adapters/aicAdapter";
 
 import type { NormalisedArtwork } from "../../types/artTypes";
 
-// 🔀 Interleave utility
-function interleave<T>(arr1: T[], arr2: T[]): T[] {
+function interleave<T>(...arrays: T[][]): T[] {
   const result: T[] = [];
-  const maxLength = Math.max(arr1.length, arr2.length);
+  const maxLength = Math.max(...arrays.map((a) => a.length));
 
   for (let i = 0; i < maxLength; i++) {
-    if (i < arr1.length) result.push(arr1[i]);
-    if (i < arr2.length) result.push(arr2[i]);
+    arrays.forEach((arr) => {
+      if (i < arr.length) result.push(arr[i]);
+    });
   }
 
   return result;
@@ -22,28 +22,53 @@ function interleave<T>(arr1: T[], arr2: T[]): T[] {
 export async function searchAllMuseums(
   query: string,
   cmaSkip: number,
-  siStart: number,
   limit: number
 ): Promise<NormalisedArtwork[]> {
   try {
-    const [cmaRaw, siRaw] = await Promise.all([
-      cmaSearchArtworks(query, cmaSkip, limit),
+    const [cmaRaw, aicRaw] = await Promise.all([
       (async () => {
         try {
-          return await siSearchArtworks(query, siStart, limit);
+          const res = await cmaSearchArtworks(query, cmaSkip, limit);
+          console.log("✅ Raw CMA data (first item):", res[0]);
+          return res;
         } catch (err) {
-          console.error("SI search failed:", err);
+          console.error("CMA search failed:", err);
+          return [];
+        }
+      })(),
+      (async () => {
+        try {
+          const res = await aicSearchArtworks(query, 1, limit);
+          console.log("✅ Raw AIC data (first item):", res[0]);
+
+          // fetch full details for each ID to enrich with description
+          const detailed = await Promise.all(
+            res.map(async (item) => {
+              try {
+                const detail = await aicFetchArtworkById(item.id);
+                return { ...item, ...detail }; // merge shallow search + detail
+              } catch (err) {
+                console.warn(`⚠️ AIC detail fetch failed for id ${item.id}`, err);
+                return item; // fallback to search result only
+              }
+            })
+          );
+
+          return detailed;
+        } catch (err) {
+          console.error("AIC search failed:", err);
           return [];
         }
       })(),
     ]);
 
     const cmaResults = cmaRaw.map(cmaToNormalisedArtwork);
-    const siResults = siRaw.map(siToNormalisedArtwork);
+    const aicResults = aicRaw.map(aicToNormalisedArtwork);
 
-    console.log("✅ SI results after normalising:", siResults);
+    console.log("🎨 Normalised CMA (first item):", cmaResults[0]);
+    console.log("🎨 Normalised AIC (first item):", aicResults[0]);
 
-    return interleave(cmaResults, siResults); // 🔀 Mix CMA + SI
+    return interleave(cmaResults, aicResults);
   } catch (err) {
     console.error("Museum search failed:", err);
     return [];
