@@ -19,7 +19,11 @@ export default function ArtworkItem({ art }: ArtworkItemProps) {
         <button
           onClick={(e) => {
             e.stopPropagation();
-            alreadyAdded ? removeFromExhibition(art.id) : addToExhibition(art);
+            if (alreadyAdded) {
+              removeFromExhibition(art.id);
+            } else {
+              addToExhibition(art);
+            }
           }}
           className={`
     absolute top-6 right-6 rounded z-10 h-8 flex items-center justify-center
@@ -48,12 +52,16 @@ export default function ArtworkItem({ art }: ArtworkItemProps) {
             </div>
           )}
         </div>
-        <h3 className="mt-2 font-semibold line-clamp-2 leading-tight">{art.title}</h3>
-        <p className="text-sm text-gray-600">{art.artist}</p>
-        <p className="text-sm text-gray-600">{art.date}</p>
-        <p className="text-sm text-gray-600">
-          Source: {art.source === "cma" ? "Cleveland Art Museum" : "Smithsonian Institute"}
-        </p>
+        <div className="flex flex-col gap-0.5">
+          <h3 className="mt-2 font-semibold line-clamp-2 leading-tight min-h-[2.5rem]">
+            {art.title}
+          </h3>
+          <p className="text-sm text-gray-600 line-clamp-1">by {art.artist}</p>
+          <p className="text-sm text-gray-600">Created {art.date}</p>
+          <p className="text-xs text-gray-600">
+            Source: {art.source === "cma" ? "Cleveland Art Museum" : "Art Institute of Chicago"}
+          </p>
+        </div>
       </div>
       {showModal && <ArtworkDetailModal art={art} onClose={() => setShowModal(false)} />}
     </div>
