@@ -2,9 +2,13 @@ import Image from "next/image";
 import type { ArtworkItemProps } from "../types/artTypes";
 import ArtworkDetailModal from "./ArtworkDetailModal";
 import { useState } from "react";
+import { useExhibition } from "../context/ExhibitionContext";
 
 export default function ArtworkItem({ art }: ArtworkItemProps) {
   const [showModal, setShowModal] = useState(false);
+  const { exhibition, addToExhibition, removeFromExhibition } = useExhibition();
+
+  const alreadyAdded = exhibition.some((a) => a.id === art.id);
 
   return (
     <div>
@@ -12,20 +16,29 @@ export default function ArtworkItem({ art }: ArtworkItemProps) {
         onClick={() => setShowModal(true)}
         className="p-4 rounded-lg shadow-xl bg-white flex flex-col cursor-pointer hover:shadow-2xl transition relative"
       >
-        <div
-          className="absolute top-6 right-6 bg-yellow-500 text-white rounded 
-             z-10 h-8 w-8 transition-all duration-300 ease-in-out 
-             hover:w-40 cursor-pointer overflow-hidden group 
-             flex items-center justify-center"
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            alreadyAdded ? removeFromExhibition(art.id) : addToExhibition(art);
+          }}
+          className={`
+    absolute top-6 right-6 rounded z-10 h-8 flex items-center justify-center
+    overflow-hidden group transition-all duration-300 ease-in-out
+    ${
+      alreadyAdded
+        ? "bg-red-500 hover:bg-red-600 text-white px-3"
+        : "bg-yellow-500 hover:bg-yellow-600 text-white px-3"
+    }
+  `}
         >
-          <span className="shrink-0">+</span>
+          <span className="shrink-0">{alreadyAdded ? "−" : "+"}</span>
           <span
-            className="hidden group-hover:inline-block whitespace-nowrap ml-2 
-               opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 
+               transition-all duration-300 whitespace-nowrap"
           >
-            Add to exhibition
+            {alreadyAdded ? "Remove from exhibition" : "Add to exhibition"}
           </span>
-        </div>
+        </button>
         <div className="w-full aspect-square relative bg-yellow-100 rounded overflow-hidden">
           {art.imageUrl ? (
             <Image src={art.imageUrl} alt={art.title} fill className="object-cover" />
