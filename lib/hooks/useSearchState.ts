@@ -57,7 +57,7 @@ export function useSearchState(limit = 6) {
     setResults([]);
     setError(null);
     setHasSearched(false);
-    clearExhibition(); // 👈 also reset exhibition contents
+    clearExhibition();
   };
 
   const filteredResults = showWithImagesOnly
