@@ -46,3 +46,8 @@ export type LogoHeaderProps = {
   big: boolean;
   resetSearch?: () => void;
 };
+
+export type ExhibitionDrawerProps = {
+  show: boolean;
+  onClose: () => void;
+};
