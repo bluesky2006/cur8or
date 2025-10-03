@@ -40,7 +40,6 @@ export default function BackgroundSlideshow() {
         </div>
       ))}
 
-      {/* subtle overlay for readability */}
       <div className="absolute inset-0 bg-black/30" />
 
       <style jsx global>{`
