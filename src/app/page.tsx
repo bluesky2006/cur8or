@@ -30,7 +30,7 @@ export default function Home() {
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
-      <main className={`w-full max-w-6xl ${hasResults ? "pt-20" : ""}`}>
+      <main className={`w-full max-w-6xl ${hasResults ? "pt-12" : ""}`}>
         <Header
           query={query}
           setQuery={setQuery}
