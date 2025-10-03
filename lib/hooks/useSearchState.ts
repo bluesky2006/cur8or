@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { searchAllMuseums } from "../api/searchAllMuseums";
 import type { NormalisedArtwork } from "../../types/artTypes";
+import { useExhibition } from "../../context/ExhibitionContext";
 
 export function useSearchState(limit = 6) {
   const [query, setQuery] = useState<string>("");
@@ -11,6 +12,8 @@ export function useSearchState(limit = 6) {
   const [siStart, setSiStart] = useState(0);
   const [hasSearched, setHasSearched] = useState(false);
   const [showWithImagesOnly, setShowWithImagesOnly] = useState(false);
+
+  const { clearExhibition } = useExhibition();
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,9 +57,12 @@ export function useSearchState(limit = 6) {
     setResults([]);
     setError(null);
     setHasSearched(false);
+    clearExhibition(); // 👈 also reset exhibition contents
   };
 
-  const filteredResults = showWithImagesOnly ? results.filter((art) => !!art.imageUrl) : results;
+  const filteredResults = showWithImagesOnly
+    ? results.filter((art) => !!art.imageUrl)
+    : results;
 
   return {
     query,
