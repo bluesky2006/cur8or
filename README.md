@@ -71,8 +71,8 @@ The app will be available at `http://localhost:3000`.
 │   └── ExhibitionContext.tsx
 ├── lib/
 │   └── adapters/
-│       └── aicAdapter.ts           # Adapter for normalising Art Institute of Chicago search results into desired shape
-│       ├── cmaAdapter.ts           # Adapter for normalising Cleveland Museum search results into desired shape
+│       ├── aicAdapter.ts           # Adapter for normalising Art Institute of Chicago search results into desired shape
+│       └── cmaAdapter.ts           # Adapter for normalising Cleveland Museum search results into desired shape
 │   └── api/
 │       ├── aic.ts                  # Art Institute of Chicago API search
 │       ├── cma.ts                  # Cleveland Museum API search
