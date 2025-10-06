@@ -53,10 +53,8 @@ export default function Header({
           }
         `}
       >
-        {/* Logo */}
         <LogoHeader big={!hasResults} resetSearch={resetSearch} />
 
-        {/* Search Bar */}
         <div
           className={hasResults ? "w-full sm:flex-1 sm:max-w-xl" : "w-full max-w-2xl mx-auto mt-4"}
         >
@@ -70,7 +68,6 @@ export default function Header({
           />
         </div>
 
-        {/* Right-side controls */}
         {hasResults && (
           <div
             className="
