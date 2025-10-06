@@ -6,12 +6,12 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "openaccess-cdn.clevelandart.org",
-        pathname: "/**", // all CMA images
+        pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "www.artic.edu",
-        pathname: "/**", // all Smithsonian IDS images
+        pathname: "/**",
       },
     ],
   },
