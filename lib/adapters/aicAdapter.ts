@@ -15,5 +15,8 @@ export function aicToNormalisedArtwork(item: AICArtwork): NormalisedArtwork {
     imageUrl: item.image_id
       ? `https://www.artic.edu/iiif/2/${item.image_id}/full/843,/0/default.jpg`
       : "",
+    artworkUrl: item.api_link
+      ? `https://www.artic.edu/artworks/${item.id}`
+      : "",
   };
 }

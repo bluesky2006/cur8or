@@ -9,5 +9,6 @@ export function cmaToNormalisedArtwork(item: CMAArtwork): NormalisedArtwork {
     description: item.wall_description || item.description || "No description available",
     date: item.creation_date || item.creation_date_earliest || "Unknown date",
     imageUrl: item.images?.web?.url || "",
+    artworkUrl: item.url || `https://www.clevelandart.org/art/${item.id}`,
   };
 }

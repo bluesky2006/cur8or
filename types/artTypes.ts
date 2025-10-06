@@ -61,6 +61,7 @@ export type NormalisedArtwork = {
   description: string;
   date: string;
   imageUrl: string;
+  artworkUrl?: string;
 };
 
 export type LogoHeaderProps = {
