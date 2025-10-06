@@ -17,7 +17,7 @@ export default function LogoHeader({ big, resetSearch }: LogoHeaderProps) {
         ${dmSerif.className}
       `}
     >
-      <p>cur8or</p>
+      <h1>cur8or</h1>
     </header>
   );
 }

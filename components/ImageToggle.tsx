@@ -7,20 +7,25 @@ export default function ImageToggle({
   showWithImagesOnly: boolean;
   setShowWithImagesOnly: (val: boolean) => void;
 }) {
+  const label = "Show results with images only";
+
   return (
     <div className="flex items-center gap-2 text-sm">
       <button
         type="button"
         onClick={() => setShowWithImagesOnly(!showWithImagesOnly)}
-        className="flex items-center"
+        className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 rounded"
+        aria-pressed={showWithImagesOnly}
+        aria-label={label}
       >
         {showWithImagesOnly ? (
-          <BsToggleOn className="text-yellow-500 text-3xl" />
+          <BsToggleOn className="text-yellow-500 text-3xl" aria-hidden="true" />
         ) : (
-          <BsToggleOff className="text-gray-400 text-3xl" />
+          <BsToggleOff className="text-gray-400 text-3xl" aria-hidden="true" />
         )}
       </button>
-      <span>Results with images only</span>
+
+      <span id="image-toggle-label">{label}</span>
     </div>
   );
 }
