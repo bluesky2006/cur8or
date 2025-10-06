@@ -45,13 +45,21 @@ export default function Header({
     >
       <div
         className={`
-    max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-4 sm:gap-4 p-4
-    ${!hasResults ? "text-center" : ""}
-  `}
+          max-w-6xl mx-auto p-4 flex 
+          ${
+            hasResults
+              ? "flex-col lg:flex-row items-center gap-4 sm:gap-4"
+              : "flex-col text-center gap-6"
+          }
+        `}
       >
+        {/* Logo */}
         <LogoHeader big={!hasResults} resetSearch={resetSearch} />
 
-        <div className={hasResults ? "w-full sm:flex-1 sm:max-w-xl" : "w-full max-w-2xl mx-auto"}>
+        {/* Search Bar */}
+        <div
+          className={hasResults ? "w-full sm:flex-1 sm:max-w-xl" : "w-full max-w-2xl mx-auto mt-4"}
+        >
           <SearchBar
             query={query}
             setQuery={(val: string) => {
@@ -66,10 +74,10 @@ export default function Header({
         {hasResults && (
           <div
             className="
-      w-full lg:w-auto
-      flex flex-wrap justify-center lg:justify-end items-center
-      gap-6 lg:mt-0 lg:ml-auto
-    "
+              w-full lg:w-auto
+              flex flex-wrap justify-center lg:justify-end items-center
+              gap-6 mt-3 lg:mt-0 lg:ml-auto
+            "
           >
             <ImageToggle
               showWithImagesOnly={showWithImagesOnly}

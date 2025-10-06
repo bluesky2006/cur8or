@@ -37,7 +37,7 @@ export default function Home() {
         <main
           className={`
     w-full max-w-6xl 
-    ${hasResults ? "md:pt-40 lg:pt-16" : ""}
+    ${hasResults ? "pt-44 lg:pt-12" : ""}
   `}
         >
           <Header
