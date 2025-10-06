@@ -3,7 +3,7 @@ import { DM_Serif_Text } from "next/font/google";
 import { LogoHeaderProps } from "../types/artTypes";
 
 const dmSerif = DM_Serif_Text({
-  weight: "400", // only one weight available
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -14,7 +14,7 @@ export default function LogoHeader({ big, resetSearch }: LogoHeaderProps) {
       className={`
         text-yellow-500 cursor-pointer hover:text-yellow-600
         ${big ? "text-9xl" : "text-5xl"}
-        ${dmSerif.className}  // 👈 apply font here
+        ${dmSerif.className}
       `}
     >
       <p>cur8or</p>

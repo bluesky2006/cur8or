@@ -1,9 +1,7 @@
 import { cmaSearchArtworks } from "./cma";
 import { cmaToNormalisedArtwork } from "../../lib/adapters/cmaAdapter";
-
 import { aicSearchArtworks, aicFetchArtworkById } from "./aic";
 import { aicToNormalisedArtwork } from "../../lib/adapters/aicAdapter";
-
 import type { NormalisedArtwork } from "../../types/artTypes";
 
 function interleave<T>(...arrays: T[][]): T[] {
@@ -29,7 +27,6 @@ export async function searchAllMuseums(
       (async () => {
         try {
           const res = await cmaSearchArtworks(query, cmaSkip, limit);
-          console.log("✅ Raw CMA data (first item):", res[0]);
           return res;
         } catch (err) {
           console.error("CMA search failed:", err);
@@ -39,17 +36,14 @@ export async function searchAllMuseums(
       (async () => {
         try {
           const res = await aicSearchArtworks(query, 1, limit);
-          console.log("✅ Raw AIC data (first item):", res[0]);
-
-          // fetch full details for each ID to enrich with description
           const detailed = await Promise.all(
             res.map(async (item) => {
               try {
                 const detail = await aicFetchArtworkById(item.id);
-                return { ...item, ...detail }; // merge shallow search + detail
+                return { ...item, ...detail };
               } catch (err) {
-                console.warn(`⚠️ AIC detail fetch failed for id ${item.id}`, err);
-                return item; // fallback to search result only
+                console.warn(`AIC detail fetch failed for id ${item.id}`, err);
+                return item;
               }
             })
           );
@@ -64,9 +58,6 @@ export async function searchAllMuseums(
 
     const cmaResults = cmaRaw.map(cmaToNormalisedArtwork);
     const aicResults = aicRaw.map(aicToNormalisedArtwork);
-
-    console.log("🎨 Normalised CMA (first item):", cmaResults[0]);
-    console.log("🎨 Normalised AIC (first item):", aicResults[0]);
 
     return interleave(cmaResults, aicResults);
   } catch (err) {

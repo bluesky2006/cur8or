@@ -1,4 +1,3 @@
-// SearchBar.tsx
 import type { SearchBarProps } from "../types/artTypes";
 
 export default function SearchBar({
