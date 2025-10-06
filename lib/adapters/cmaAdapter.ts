@@ -1,6 +1,6 @@
-import type { CmaArtwork, NormalisedArtwork } from "../../types/artTypes.js";
+import type { CMAArtwork, NormalisedArtwork } from "../../types/artTypes.js";
 
-export function cmaToNormalisedArtwork(item: CmaArtwork): NormalisedArtwork {
+export function cmaToNormalisedArtwork(item: CMAArtwork): NormalisedArtwork {
   return {
     id: item.id?.toString() || "unknown-id",
     source: "cma",

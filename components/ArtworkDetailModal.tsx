@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { useExhibition } from "../context/ExhibitionContext";
+import { ArtworkDetailModalProps } from "../types/artTypes";
 
-export default function ArtworkDetailModal({ art, onClose }) {
+export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalProps) {
   const { exhibition, addToExhibition, removeFromExhibition } = useExhibition();
 
   const alreadyAdded = exhibition.some((a) => a.id === art.id);

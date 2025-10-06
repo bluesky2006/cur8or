@@ -1,22 +1,16 @@
 "use client";
 import { createContext, useContext, useState } from "react";
-
-type ExhibitionContextType = {
-  exhibition: any[];
-  addToExhibition: (artwork: any) => void;
-  removeFromExhibition: (id: string) => void;
-  clearExhibition: () => void;
-};
+import { ExhibitionContextType, NormalisedArtwork } from "../types/artTypes";
 
 const ExhibitionContext = createContext<ExhibitionContextType | undefined>(undefined);
 
 export function ExhibitionProvider({ children }: { children: React.ReactNode }) {
-  const [exhibition, setExhibition] = useState<any[]>([]);
+  const [exhibition, setExhibition] = useState<NormalisedArtwork[]>([]);
 
-  const addToExhibition = (artwork: any) => {
+  const addToExhibition = (artwork: NormalisedArtwork) => {
     setExhibition((prev) => {
       if (prev.some((a) => a.id === artwork.id)) {
-        return prev; // prevent duplicates
+        return prev;
       }
       return [...prev, artwork];
     });

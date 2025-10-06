@@ -1,11 +1,13 @@
+import { AICArtwork } from "../../types/artTypes";
+
 const AIC_API = "https://api.artic.edu/api/v1/artworks";
 
-// 🔎 Search endpoint (lightweight, no description)
+// Search endpoint (no description)
 export async function aicSearchArtworks(
   query: string,
   page: number = 1,
   limit: number = 10
-): Promise<any[]> {
+): Promise<AICArtwork[]> {
   const url = new URL(`${AIC_API}/search`);
   url.searchParams.set("q", query);
   url.searchParams.set("page", String(page));
@@ -21,13 +23,13 @@ export async function aicSearchArtworks(
   }
 
   const data = await res.json();
-  return data.data; // raw AIC search objects
+  return data.data;
 }
 
-// 📖 Detail endpoint (richer metadata, includes description if available)
+// Detail endpoint (add description if available)
 export async function aicFetchArtworkById(id: number) {
   const res = await fetch(`${AIC_API}/${id}`);
   if (!res.ok) throw new Error(`AIC detail fetch failed: ${res.statusText}`);
   const data = await res.json();
-  return data.data; // detailed AIC record
+  return data.data;
 }

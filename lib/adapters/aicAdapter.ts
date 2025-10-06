@@ -1,13 +1,13 @@
-import type { NormalisedArtwork } from "../../types/artTypes";
+import type { NormalisedArtwork, AICArtwork } from "../../types/artTypes";
 
-export function aicToNormalisedArtwork(item: any): NormalisedArtwork {
+export function aicToNormalisedArtwork(item: AICArtwork): NormalisedArtwork {
   return {
     id: `aic-${item.id}`,
     source: "aic",
     title: item.title || "Untitled",
     artist: item.artist_display || "Unknown",
     description:
-      item.description || // full record will have this
+      item.description ||
       item.thumbnail?.alt_text ||
       item.medium_display ||
       "No description available",
