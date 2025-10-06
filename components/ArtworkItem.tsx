@@ -55,7 +55,7 @@ export default function ArtworkItem({ art }: ArtworkItemProps) {
             {alreadyAdded ? "Remove from exhibition" : "Add to exhibition"}
           </span>
         </button>
-        <div className="w-full aspect-square relative bg-yellow-100 rounded overflow-hidden">
+        <div className="w-full aspect-square relative bg-gray-100 rounded overflow-hidden">
           {art.imageUrl ? (
             <Image
               src={art.imageUrl}

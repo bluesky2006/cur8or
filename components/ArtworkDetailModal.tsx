@@ -46,7 +46,7 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
         >
           ✕
         </button>
-        <div className="w-1/2 relative bg-yellow-100">
+        <div className="w-1/2 relative bg-gray-100">
           {art.imageUrl ? (
             <Image src={art.imageUrl} alt={art.title} fill className="object-cover" />
           ) : (
