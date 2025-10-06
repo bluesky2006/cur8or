@@ -44,19 +44,14 @@ export default function Header({
       }`}
     >
       <div
-        className={`max-w-6xl mx-auto flex items-center gap-6 p-4 ${
-          !hasResults ? "flex-col text-center" : "flex-row"
-        }`}
+        className={`
+    max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-4 sm:gap-4 p-4
+    ${!hasResults ? "text-center" : ""}
+  `}
       >
-        {/* Logo */}
         <LogoHeader big={!hasResults} resetSearch={resetSearch} />
 
-        {/* Search Bar with conditional width */}
-        <div
-          className={
-            hasResults ? "flex-1 max-w-xl" : "w-full max-w-2xl mx-auto" // much wider on initial view
-          }
-        >
+        <div className={hasResults ? "w-full sm:flex-1 sm:max-w-xl" : "w-full max-w-2xl mx-auto"}>
           <SearchBar
             query={query}
             setQuery={(val: string) => {
@@ -67,9 +62,15 @@ export default function Header({
           />
         </div>
 
-        {/* Right-side controls only when results are present */}
+        {/* Right-side controls */}
         {hasResults && (
-          <div className="flex items-center gap-6 ml-auto">
+          <div
+            className="
+      w-full lg:w-auto
+      flex flex-wrap justify-center lg:justify-end items-center
+      gap-6 lg:mt-0 lg:ml-auto
+    "
+          >
             <ImageToggle
               showWithImagesOnly={showWithImagesOnly}
               setShowWithImagesOnly={setShowWithImagesOnly}

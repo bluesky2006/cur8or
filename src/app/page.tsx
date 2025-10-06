@@ -34,7 +34,12 @@ export default function Home() {
       {!hasResults && <BackgroundSlideshow />}
 
       <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
-        <main className={`w-full max-w-6xl ${hasResults ? "pt-12" : ""}`}>
+        <main
+          className={`
+    w-full max-w-6xl 
+    ${hasResults ? "md:pt-40 lg:pt-16" : ""}
+  `}
+        >
           <Header
             query={query}
             setQuery={setQuery}
@@ -46,14 +51,11 @@ export default function Home() {
             exhibitionCount={exhibition.length}
             onShowExhibition={() => setShowExhibition(true)}
           />
-
           {error && <p className="mt-4 text-red-600">{error}</p>}
           {!loading && hasSearched && results.length === 0 && !error && (
             <p className="mt-6 text-center text-gray-600">No results found for “{query}”.</p>
           )}
-
           <ArtworkList results={filteredResults} />
-
           {hasResults && (
             <div className="mt-6 flex justify-center">
               <button
