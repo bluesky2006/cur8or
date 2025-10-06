@@ -1,21 +1,29 @@
 # cur8or 🎨
 
+Curate your own virtual exhibition from real museum collections.
+
 **cur8or** is a virtual exhibition builder that lets users search, browse and curate artworks from major public collections. Designed for art lovers, students and curators-in-training, the app allows anyone to create a themed exhibition using open-access artworks from leading museums.
 
 ## ✨ Features
 
-- 🔍 Unified search across multiple museum APIs
-- 🖼️ Filter by image availability
-- 🎨 Responsive grid view of search results
-- 🧠 Normalised data model for artworks
-- 🚀 Fast, mobile-first experience with Next.js + Tailwind
+- 🔍 Unified search across two museum APIs (Cleveland Museum of Art & Art Institute of Chicago)
+- 🖼️ Filter by image availability for cleaner browsing
+- ➕ Add or remove artworks to a personal exhibition collection
+- 🔗 Visit artwork entries directly on each museum’s website for more information
+- 🎨 Responsive grid layout for search results
+- 🧠 Normalised data model for consistent cross-museum data
+- 💡 Accessibility-friendly UI with proper ARIA roles, keyboard navigation and focus states
+- 🌙 Background slideshow for empty state screens — a curated visual atmosphere
+- 🪶 Lightweight, server-side rendered pages for fast initial load and SEO-ready metadata
+- 🧩 Modular React components and a clear type-safe architecture (TypeScript throughout)
+- ⚡ Session-based persistence (via Context API)
 
 ## 🧑‍💻 Tech Stack
 
 - [Next.js](https://nextjs.org/) (App Router)
 - [Tailwind CSS](https://tailwindcss.com/)
 - TypeScript
-- Fetching from public APIs (e.g. [Smithsonian Institute](https://edan.si.edu/openaccess/apidocs/), [Cleveland Museum of Art](https://openaccess-api.clevelandart.org/))
+- Fetching from public APIs (e.g. [Art Institute of Chicago](https://api.artic.edu/docs/), [Cleveland Museum of Art](https://openaccess-api.clevelandart.org/))
 
 ## 📦 Getting Started
 
@@ -40,14 +48,6 @@ npm run dev
 
 The app will be available at `http://localhost:3000`.
 
-## 🔐 API Keys
-
-The Smithsonian Institute API requires an API key, free to apply for via [the site](https://api.data.gov/signup/). Once you have one, create a `.env.local` file and add:
-
-```env
-NEXT_PUBLIC_SMITHSONIAN_API_KEY=your_api_key_here
-```
-
 ## 🖼️ Example Screenshot
 
 ![cur8or search results](public/example-screenshot.png)
@@ -57,38 +57,43 @@ NEXT_PUBLIC_SMITHSONIAN_API_KEY=your_api_key_here
 ```
 /
 ├── components/                     # Reusable UI components
+│   ├── ArtworkDetailModal.tsx
 │   ├── ArtworkItem.tsx
 │   ├── ArtworkList.tsx
-│   ├── LogoHeader.tsx
+│   ├── BackgroundSlideshow.tsx
+│   ├── ExhibitionDrawer.tsx
+│   ├── Header.tsx
+│   ├── ImageToggle.tsx
+│   ├── Logo.tsx
+│   ├── MyExhibitionButton.tsx
 │   └── SearchBar.tsx
+├── context/                        # Global context
+│   └── ExhibitionContext.tsx
 ├── lib/
-│   └── api/
-│       ├── cmaSearch.ts            # Cleveland Museum API search
-│       ├── searchAllMuseums.ts     # Combined museum search results
-│       └── siSearch.ts             # Smithsonian Institute API search
 │   └── adapters/
+│       └── aicAdapter.ts           # Adapter for normalising Art Institute of Chicago search results into desired shape
 │       ├── cmaAdapter.ts           # Adapter for normalising Cleveland Museum search results into desired shape
-│       └── siAdapter.ts            # Adapter for normalising Smithsonian Institute search results into desired shape
+│   └── api/
+│       ├── aic.ts                  # Art Institute of Chicago API search
+│       ├── cma.ts                  # Cleveland Museum API search
+│       └── searchAllMuseums.ts     # Combined museum search results
 │   └── hooks/
 │       └── useSearchState.ts       # Hook containing all state used in main landing page search
 ├── public/                         # Static assets
+│   └── art-backgrounds/
 ├── src/
 │   └── app/                        # Next.js App Router
 │       ├── globals.css
-│       └── layout.tsx
+│       ├── layout.tsx
 │       └── page.tsx                # Main landing page
 ├── types/
 │   └── artTypes.ts                 # Normalised artwork type
-└── README.md                       # You are here
 ```
 
 ## 🚧 In Progress
 
-- 🗃️ Saving artworks to a virtual “exhibition space”
-- 🖼️ Exhibition view page with custom title and description
 - 🧮 More sorting and filtering options
 - 🔐 User login
-- 🧹 TBD: Filter out search results without images
 
 ## 📄 Licence
 
