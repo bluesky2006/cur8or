@@ -32,7 +32,9 @@ export default function Home() {
   return (
     <div className="relative min-h-screen">
       {!hasResults && <BackgroundSlideshow />}
-
+      {!hasResults && (
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-xs z-0" aria-hidden="true" />
+      )}
       <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
         <main
           className={`
@@ -50,11 +52,19 @@ export default function Home() {
             hasResults={hasResults}
             exhibitionCount={exhibition.length}
             onShowExhibition={() => setShowExhibition(true)}
+            loading={loading}
           />
+
           {error && <p className="mt-4 text-red-600">{error}</p>}
+
           {!loading && hasSearched && results.length === 0 && !error && (
-            <p className="mt-6 text-center text-gray-600">No results found for “{query}”.</p>
+            <div className="flex items-center justify-center h-[10vh]">
+              <p className="bg-black/60 text-white px-4 py-2 rounded-full text-center">
+                No results found for “{query}”
+              </p>
+            </div>
           )}
+
           <ArtworkList results={filteredResults} />
           {hasResults && (
             <div className="mt-6 flex justify-center">
