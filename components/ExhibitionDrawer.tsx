@@ -6,7 +6,7 @@ import { useExhibition } from "../context/ExhibitionContext";
 import { ExhibitionDrawerProps } from "../types/artTypes";
 
 export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProps) {
-  const { exhibition, removeFromExhibition } = useExhibition();
+  const { exhibition, removeFromExhibition, clearExhibition } = useExhibition();
 
   return (
     <div
@@ -20,7 +20,7 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
           relative w-120 max-w-full h-full bg-white shadow-lg p-6 transform transition-transform duration-300 ease-in-out
           ${show ? "translate-x-0" : "translate-x-full"}
         `}
-        onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
+        onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
@@ -44,7 +44,6 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
                   key={art.id}
                   className="relative flex items-center border-b border-gray-300 pb-6 gap-3 pt-2 pr-12"
                 >
-                  {/* Thumbnail + details */}
                   <div className="flex gap-3">
                     {art.imageUrl ? (
                       <div className="relative w-24 aspect-square flex-shrink-0 rounded overflow-hidden bg-gray-100">
@@ -62,7 +61,6 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
                     </div>
                   </div>
 
-                  {/* Trash button in top-right */}
                   <button
                     onClick={() => removeFromExhibition(art.id)}
                     className="absolute top-0 right-0 p-1 text-red-500 hover:text-red-700"
@@ -72,6 +70,12 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
                 </li>
               ))}
             </ul>
+            <button
+              onClick={clearExhibition}
+              className="mt-4 text-md font-semibold rounded py-2 px-4 bg-red-500 text-white hover:bg-red-600"
+            >
+              Remove all exhibits
+            </button>
           </div>
         )}
       </div>
