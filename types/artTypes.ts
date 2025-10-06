@@ -14,6 +14,7 @@ export interface CMAArtwork {
       url: string;
     };
   };
+  url: string;
 }
 
 export interface AICArtwork {
@@ -30,6 +31,7 @@ export interface AICArtwork {
     alt_text: string | null;
   };
   medium_display: string;
+  api_link: string;
 }
 
 export interface ArtworkItemProps {
@@ -45,13 +47,12 @@ export interface ArtworkDetailModalProps {
   onClose: () => void;
 }
 
-export type SearchBarProps = {
+export interface SearchBarProps {
   query: string;
-  setQuery: (query: string) => void;
+  setQuery: (val: string) => void;
   handleSearch: (e: React.FormEvent<HTMLFormElement>) => void;
-  showWithImagesOnly: boolean;
-  setShowWithImagesOnly: (val: boolean) => void;
-};
+  loading?: boolean;
+}
 
 export type NormalisedArtwork = {
   id: string;
@@ -67,6 +68,7 @@ export type NormalisedArtwork = {
 export type LogoHeaderProps = {
   big: boolean;
   resetSearch?: () => void;
+  hasResults?: boolean;
 };
 
 export type ExhibitionDrawerProps = {
@@ -80,3 +82,26 @@ export type ExhibitionContextType = {
   removeFromExhibition: (id: string) => void;
   clearExhibition: () => void;
 };
+
+export interface ImageToggleProps {
+  showWithImagesOnly: boolean;
+  setShowWithImagesOnly: (val: boolean) => void;
+}
+
+export interface HeaderProps {
+  query: string;
+  setQuery: (val: string) => void;
+  handleSearch: (e: React.FormEvent<HTMLFormElement>) => void;
+  showWithImagesOnly: boolean;
+  setShowWithImagesOnly: (val: boolean) => void;
+  resetSearch: () => void;
+  hasResults: boolean;
+  exhibitionCount: number;
+  onShowExhibition: () => void;
+  loading: boolean;
+}
+
+export interface MyExhibitionButtonProps {
+  exhibitionCount: number;
+  onClick: () => void;
+}

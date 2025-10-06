@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import LogoHeader from "./Logo";
+import Logo from "./Logo";
 import SearchBar from "./SearchBar";
 import MyExhibitionButton from "./MyExhibitionButton";
 import ImageToggle from "./ImageToggle";
+import { HeaderProps } from "../types/artTypes";
 
 export default function Header({
   query,
@@ -16,17 +17,8 @@ export default function Header({
   hasResults,
   exhibitionCount,
   onShowExhibition,
-}: {
-  query: string;
-  setQuery: (val: string) => void;
-  handleSearch: (e: React.FormEvent<HTMLFormElement>) => void;
-  showWithImagesOnly: boolean;
-  setShowWithImagesOnly: (val: boolean) => void;
-  resetSearch: () => void;
-  hasResults: boolean;
-  exhibitionCount: number;
-  onShowExhibition: () => void;
-}) {
+  loading,
+}: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -53,7 +45,7 @@ export default function Header({
           }
         `}
       >
-        <LogoHeader big={!hasResults} resetSearch={resetSearch} />
+        <Logo big={!hasResults} resetSearch={resetSearch} hasResults={hasResults} />
 
         <div
           className={hasResults ? "w-full sm:flex-1 sm:max-w-xl" : "w-full max-w-2xl mx-auto mt-4"}
@@ -65,6 +57,7 @@ export default function Header({
               if (val.trim() === "") resetSearch();
             }}
             handleSearch={handleSearch}
+            loading={loading}
           />
         </div>
 

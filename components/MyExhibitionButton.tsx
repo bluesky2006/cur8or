@@ -1,12 +1,7 @@
 "use client";
+import { MyExhibitionButtonProps } from "../types/artTypes";
 
-export default function MyExhibitionButton({
-  exhibitionCount,
-  onClick,
-}: {
-  exhibitionCount: number;
-  onClick: () => void;
-}) {
+export default function MyExhibitionButton({ exhibitionCount, onClick }: MyExhibitionButtonProps) {
   return (
     <button
       type="button"

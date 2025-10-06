@@ -1,10 +1,6 @@
 import type { SearchBarProps } from "../types/artTypes";
 
-export default function SearchBar({
-  query,
-  setQuery,
-  handleSearch,
-}: Omit<SearchBarProps, "showWithImagesOnly" | "setShowWithImagesOnly" | "hasResults">) {
+export default function SearchBar({ query, setQuery, handleSearch, loading }: SearchBarProps) {
   return (
     <form
       onSubmit={handleSearch}
@@ -21,13 +17,27 @@ export default function SearchBar({
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search artworks…"
           aria-label="Search artworks"
-          className="flex-1 px-4 py-2 rounded-full bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+          disabled={loading}
+          className="flex-1 px-4 py-2 rounded-full bg-white border border-gray-300 
+                     focus:outline-none focus:border-yellow-400 
+                     focus:shadow-[0_0_20px_rgba(250,204,21,0.4)]
+                     transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
         />
+
         <button
           type="submit"
-          className="bg-yellow-500 text-white px-6 py-2 rounded-full hover:bg-yellow-600 transition-colors cursor-pointer"
+          disabled={loading}
+          className="bg-yellow-500 text-white px-6 py-2 rounded-full hover:bg-yellow-600 
+                     transition-colors cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed
+                     flex items-center justify-center gap-2"
         >
-          Search
+          {loading && (
+            <div
+              className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+              aria-hidden="true"
+            />
+          )}
+          {loading ? "Searching…" : "Search"}
         </button>
       </div>
     </form>
