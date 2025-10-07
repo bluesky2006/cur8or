@@ -8,15 +8,16 @@ Curate your own virtual exhibition from real museum collections.
 
 - 🔍 Unified search across two museum APIs (Cleveland Museum of Art & Art Institute of Chicago)
 - 🖼️ Filter by image availability for cleaner browsing
+- 🖱️ Interactive exhibition view with hover overlays and artwork modals
 - ➕ Add or remove artworks to a personal exhibition collection
+- 💾 Persistent exhibition and search state using Context + localStorage
 - 🔗 Visit artwork entries directly on each museum’s website for more information
 - 🎨 Responsive grid layout for search results
-- 🧠 Normalised data model for consistent cross-museum data
-- 💡 Accessibility-friendly UI with proper ARIA roles, keyboard navigation and focus states
 - 🌙 Background slideshow for empty state screens — a curated visual atmosphere
+- 💡 Accessibility-friendly UI with proper ARIA roles, keyboard navigation and focus states
+- 🧠 Normalised data model for consistent cross-museum data
+- 🧩 Modular React components and a clear, type-safe architecture
 - 🪶 Lightweight, server-side rendered pages for fast initial load and SEO-ready metadata
-- 🧩 Modular React components and a clear type-safe architecture (TypeScript throughout)
-- ⚡ Session-based persistence (via Context API)
 
 ## 🧑‍💻 Tech Stack
 
@@ -61,6 +62,7 @@ The app will be available at `http://localhost:3000`.
 │   ├── ArtworkItem.tsx
 │   ├── ArtworkList.tsx
 │   ├── BackgroundSlideshow.tsx
+│   ├── ExhibitionArtworkItem.tsx
 │   ├── ExhibitionDrawer.tsx
 │   ├── Header.tsx
 │   ├── ImageToggle.tsx
@@ -68,21 +70,22 @@ The app will be available at `http://localhost:3000`.
 │   ├── MyExhibitionButton.tsx
 │   └── SearchBar.tsx
 ├── context/                        # Global context
-│   └── ExhibitionContext.tsx
+│   ├── ExhibitionContext.tsx
+│   └── SearchContext.tsx
 ├── lib/
-│   └── adapters/
-│       ├── aicAdapter.ts           # Adapter for normalising Art Institute of Chicago search results into desired shape
-│       └── cmaAdapter.ts           # Adapter for normalising Cleveland Museum search results into desired shape
-│   └── api/
-│       ├── aic.ts                  # Art Institute of Chicago API search
-│       ├── cma.ts                  # Cleveland Museum API search
-│       └── searchAllMuseums.ts     # Combined museum search results
-│   └── hooks/
-│       └── useSearchState.ts       # Hook containing all state used in main landing page search
+│   └── adapters/                   # Normalises API responses from each museum
+│       ├── aicAdapter.ts
+│       └── cmaAdapter.ts
+│   └── api/                        # Individual API calls for museum data
+│       ├── aic.ts
+│       ├── cma.ts
+│       └── searchAllMuseums.ts
 ├── public/                         # Static assets
 │   └── art-backgrounds/
 ├── src/
 │   └── app/                        # Next.js App Router
+│       └── my-exhibition/
+│           └── page.tsx
 │       ├── globals.css
 │       ├── layout.tsx
 │       └── page.tsx                # Main landing page
