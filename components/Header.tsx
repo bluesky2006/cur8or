@@ -5,21 +5,27 @@ import Logo from "./Logo";
 import SearchBar from "./SearchBar";
 import MyExhibitionButton from "./MyExhibitionButton";
 import ImageToggle from "./ImageToggle";
+import { useSearchContext } from "../context/SearchContext";
 import { HeaderProps } from "../types/artTypes";
 
 export default function Header({
-  query,
-  setQuery,
   handleSearch,
   showWithImagesOnly,
   setShowWithImagesOnly,
-  resetSearch,
   hasResults,
   exhibitionCount,
   onShowExhibition,
   loading,
 }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
+  const { setQuery, setResults, setHasSearched } = useSearchContext();
+
+  const resetSearch = () => {
+    setQuery("");
+    setResults([]);
+    setHasSearched(false);
+    localStorage.removeItem("searchState");
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0);
@@ -50,15 +56,7 @@ export default function Header({
         <div
           className={hasResults ? "w-full sm:flex-1 sm:max-w-xl" : "w-full max-w-2xl mx-auto mt-4"}
         >
-          <SearchBar
-            query={query}
-            setQuery={(val: string) => {
-              setQuery(val);
-              if (val.trim() === "") resetSearch();
-            }}
-            handleSearch={handleSearch}
-            loading={loading}
-          />
+          <SearchBar handleSearch={handleSearch} loading={loading} />
         </div>
 
         {hasResults && (

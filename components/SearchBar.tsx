@@ -1,6 +1,11 @@
-import type { SearchBarProps } from "../types/artTypes";
+"use client";
 
-export default function SearchBar({ query, setQuery, handleSearch, loading }: SearchBarProps) {
+import { useSearchContext } from "../context/SearchContext";
+import { SearchBarProps } from "../types/artTypes";
+
+export default function SearchBar({ handleSearch, loading }: SearchBarProps) {
+  const { query, setQuery } = useSearchContext();
+
   return (
     <form
       onSubmit={handleSearch}
@@ -10,6 +15,7 @@ export default function SearchBar({ query, setQuery, handleSearch, loading }: Se
         <label htmlFor="search" className="sr-only">
           Search artworks
         </label>
+
         <input
           id="search"
           type="text"

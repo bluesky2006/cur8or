@@ -1,18 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import ArtworkList from "../../components/ArtworkList";
 import { useExhibition } from "../../context/ExhibitionContext";
 import { useSearchContext } from "../../context/SearchContext";
 import ExhibitionDrawer from "../../components/ExhibitionDrawer";
 import Header from "../../components/Header";
 import BackgroundSlideshow from "../../components/BackgroundSlideshow";
-import { searchAllMuseums } from "../../lib/api/searchAllMuseums"; // assuming you have this
+import { searchAllMuseums } from "../../lib/api/searchAllMuseums";
+import type { NormalisedArtwork } from "../../types/artTypes";
 
 export default function Home() {
-  const { query, setQuery, results, setResults, hasSearched, setHasSearched } = useSearchContext();
-
-  const [filteredResults, setFilteredResults] = useState<any[]>([]);
+  const { query, results, setResults, hasSearched, setHasSearched } = useSearchContext();
+  const [filteredResults, setFilteredResults] = useState<NormalisedArtwork[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showWithImagesOnly, setShowWithImagesOnly] = useState(false);
@@ -22,7 +22,6 @@ export default function Home() {
 
   const hasResults = results.length > 0;
 
-  // --- handle search ---
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!query.trim()) {
@@ -45,24 +44,10 @@ export default function Home() {
     }
   };
 
-  // --- handle filtering ---
   useEffect(() => {
-    if (showWithImagesOnly) {
-      setFilteredResults(results.filter((art) => art.imageUrl));
-    } else {
-      setFilteredResults(results);
-    }
+    setFilteredResults(showWithImagesOnly ? results.filter((art) => art.imageUrl) : results);
   }, [results, showWithImagesOnly]);
 
-  // --- reset search ---
-  const resetSearch = () => {
-    setQuery("");
-    setResults([]);
-    setHasSearched(false);
-    setError(null);
-  };
-
-  // --- load more ---
   const loadMore = async () => {
     if (!query.trim()) return;
     setLoading(true);
@@ -84,19 +69,11 @@ export default function Home() {
       )}
 
       <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
-        <main
-          className={`
-            w-full max-w-6xl 
-            ${hasResults ? "pt-48 lg:pt-16" : ""}
-          `}
-        >
+        <main className={`w-full max-w-6xl ${hasResults ? "pt-48 lg:pt-16" : ""}`}>
           <Header
-            query={query}
-            setQuery={setQuery}
             handleSearch={handleSearch}
             showWithImagesOnly={showWithImagesOnly}
             setShowWithImagesOnly={setShowWithImagesOnly}
-            resetSearch={resetSearch}
             hasResults={hasResults}
             exhibitionCount={exhibition.length}
             onShowExhibition={() => setShowExhibition(true)}
