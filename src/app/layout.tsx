@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ExhibitionProvider } from "../../context/ExhibitionContext";
+import { SearchProvider } from "../../context/SearchContext";
 
 export const metadata: Metadata = {
   title: "Cur8or",
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ExhibitionProvider>
-        <body>{children}</body>
+        <SearchProvider>
+          <body>{children}</body>
+        </SearchProvider>
       </ExhibitionProvider>
     </html>
   );

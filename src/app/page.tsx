@@ -1,33 +1,80 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ArtworkList from "../../components/ArtworkList";
-import { useSearchState } from "../../lib/hooks/useSearchState";
 import { useExhibition } from "../../context/ExhibitionContext";
+import { useSearchContext } from "../../context/SearchContext";
 import ExhibitionDrawer from "../../components/ExhibitionDrawer";
 import Header from "../../components/Header";
 import BackgroundSlideshow from "../../components/BackgroundSlideshow";
+import { searchAllMuseums } from "../../lib/api/searchAllMuseums"; // assuming you have this
 
 export default function Home() {
-  const {
-    query,
-    setQuery,
-    results,
-    filteredResults,
-    loading,
-    error,
-    hasSearched,
-    showWithImagesOnly,
-    setShowWithImagesOnly,
-    handleSearch,
-    loadMore,
-    resetSearch,
-  } = useSearchState(6);
+  const { query, setQuery, results, setResults, hasSearched, setHasSearched } = useSearchContext();
+
+  const [filteredResults, setFilteredResults] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [showWithImagesOnly, setShowWithImagesOnly] = useState(false);
 
   const { exhibition } = useExhibition();
   const [showExhibition, setShowExhibition] = useState(false);
 
   const hasResults = results.length > 0;
+
+  // --- handle search ---
+  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!query.trim()) {
+      setError("Please enter a search term.");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setHasSearched(true);
+
+    try {
+      const artworks = await searchAllMuseums(query, 0, 6);
+      setResults(artworks);
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong while searching.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // --- handle filtering ---
+  useEffect(() => {
+    if (showWithImagesOnly) {
+      setFilteredResults(results.filter((art) => art.imageUrl));
+    } else {
+      setFilteredResults(results);
+    }
+  }, [results, showWithImagesOnly]);
+
+  // --- reset search ---
+  const resetSearch = () => {
+    setQuery("");
+    setResults([]);
+    setHasSearched(false);
+    setError(null);
+  };
+
+  // --- load more ---
+  const loadMore = async () => {
+    if (!query.trim()) return;
+    setLoading(true);
+    try {
+      const moreArtworks = await searchAllMuseums(query, results.length, 6);
+      setResults([...results, ...moreArtworks]);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="relative min-h-screen">
@@ -35,12 +82,13 @@ export default function Home() {
       {!hasResults && (
         <div className="absolute inset-0 bg-black/40 backdrop-blur-xs z-0" aria-hidden="true" />
       )}
+
       <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
         <main
           className={`
-    w-full max-w-6xl 
-    ${hasResults ? "pt-48 lg:pt-16" : ""}
-  `}
+            w-full max-w-6xl 
+            ${hasResults ? "pt-48 lg:pt-16" : ""}
+          `}
         >
           <Header
             query={query}
@@ -66,6 +114,7 @@ export default function Home() {
           )}
 
           <ArtworkList results={filteredResults} />
+
           {hasResults && (
             <div className="mt-6 flex justify-center">
               <button
