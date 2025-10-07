@@ -1,11 +1,27 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { ExhibitionContextType, NormalisedArtwork } from "../types/artTypes";
 
 const ExhibitionContext = createContext<ExhibitionContextType | undefined>(undefined);
 
 export function ExhibitionProvider({ children }: { children: React.ReactNode }) {
   const [exhibition, setExhibition] = useState<NormalisedArtwork[]>([]);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("exhibition");
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored) as NormalisedArtwork[];
+        setExhibition(parsed);
+      } catch (err) {
+        console.error("Failed to parse saved exhibition:", err);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("exhibition", JSON.stringify(exhibition));
+  }, [exhibition]);
 
   const addToExhibition = (artwork: NormalisedArtwork) => {
     setExhibition((prev) => {
