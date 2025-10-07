@@ -18,8 +18,8 @@ export default function ExhibitionArtworkItem({ art }: ArtworkItemProps) {
           <Image
             src={art.imageUrl}
             alt={art.title}
-            width={art.width || 400}
-            height={art.height || 400}
+            width={400}
+            height={400}
             className="object-contain max-h-[80vh] mx-auto shadow-lg"
           />
         </div>
