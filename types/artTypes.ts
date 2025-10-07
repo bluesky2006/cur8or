@@ -1,3 +1,5 @@
+// 1. Raw API Types
+
 export interface CMAArtwork {
   id: string | number;
   title: string;
@@ -34,6 +36,21 @@ export interface AICArtwork {
   api_link: string;
 }
 
+// 2. Normalised Internal Data Model
+
+export type NormalisedArtwork = {
+  id: string;
+  source: "aic" | "cma";
+  title: string;
+  artist: string;
+  description: string;
+  date: string;
+  imageUrl: string;
+  artworkUrl?: string;
+};
+
+// 3. Component Props
+
 export interface ArtworkItemProps {
   art: NormalisedArtwork;
 }
@@ -48,40 +65,9 @@ export interface ArtworkDetailModalProps {
 }
 
 export interface SearchBarProps {
-  query: string;
-  setQuery: (val: string) => void;
   handleSearch: (e: React.FormEvent<HTMLFormElement>) => void;
   loading?: boolean;
 }
-
-export type NormalisedArtwork = {
-  id: string;
-  source: "aic" | "cma";
-  title: string;
-  artist: string;
-  description: string;
-  date: string;
-  imageUrl: string;
-  artworkUrl?: string;
-};
-
-export type LogoHeaderProps = {
-  big: boolean;
-  resetSearch?: () => void;
-  hasResults?: boolean;
-};
-
-export type ExhibitionDrawerProps = {
-  show: boolean;
-  onClose: () => void;
-};
-
-export type ExhibitionContextType = {
-  exhibition: NormalisedArtwork[];
-  addToExhibition: (artwork: NormalisedArtwork) => void;
-  removeFromExhibition: (id: string) => void;
-  clearExhibition: () => void;
-};
 
 export interface ImageToggleProps {
   showWithImagesOnly: boolean;
@@ -105,3 +91,32 @@ export interface MyExhibitionButtonProps {
   exhibitionCount: number;
   onClick: () => void;
 }
+
+export type LogoHeaderProps = {
+  big: boolean;
+  resetSearch?: () => void;
+  hasResults?: boolean;
+};
+
+export type ExhibitionDrawerProps = {
+  show: boolean;
+  onClose: () => void;
+};
+
+// 4. Context Types
+
+export type ExhibitionContextType = {
+  exhibition: NormalisedArtwork[];
+  addToExhibition: (artwork: NormalisedArtwork) => void;
+  removeFromExhibition: (id: string) => void;
+  clearExhibition: () => void;
+};
+
+export type SearchContextType = {
+  query: string;
+  setQuery: (q: string) => void;
+  results: NormalisedArtwork[];
+  setResults: (r: NormalisedArtwork[]) => void;
+  hasSearched: boolean;
+  setHasSearched: (v: boolean) => void;
+};
