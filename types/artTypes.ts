@@ -75,12 +75,9 @@ export interface ImageToggleProps {
 }
 
 export interface HeaderProps {
-  query: string;
-  setQuery: (val: string) => void;
   handleSearch: (e: React.FormEvent<HTMLFormElement>) => void;
   showWithImagesOnly: boolean;
   setShowWithImagesOnly: (val: boolean) => void;
-  resetSearch: () => void;
   hasResults: boolean;
   exhibitionCount: number;
   onShowExhibition: () => void;
