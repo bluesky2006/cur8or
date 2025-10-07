@@ -24,7 +24,6 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
         `}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="sticky top-0 z-10 bg-white px-6 pt-6 pb-3 border-b border-gray-200 flex justify-between items-center flex-shrink-0">
           <h2 className="text-xl font-semibold">My Exhibition</h2>
           <button
@@ -35,7 +34,6 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
           </button>
         </div>
 
-        {/* Scrollable content */}
         <div className="flex-1 overflow-y-auto px-6 py-4 overscroll-contain">
           {exhibition.length === 0 ? (
             <p className="text-gray-600 mt-2">No artworks added yet.</p>
@@ -82,18 +80,18 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
           )}
         </div>
 
-        {/* Footer */}
         {exhibition.length > 0 && (
-          <div className="flex-shrink-0 bg-white px-6 p-6 flex justify-between items-center">
+          <div className="flex-shrink-0 bg-white px-6 p-6 flex justify-between items-center gap-4">
             <button
               onClick={clearExhibition}
-              className="text-md font-semibold rounded py-2 px-4 bg-red-500 text-white hover:bg-red-600"
+              className="flex-1 text-md font-semibold rounded py-2 px-4 bg-red-500 text-white hover:bg-red-600 cursor-pointer text-center"
             >
               Remove all exhibits
             </button>
+
             <Link
               href="/my-exhibition"
-              className="text-md font-semibold rounded py-2 px-4 bg-yellow-500 text-white hover:bg-yellow-600"
+              className="flex-1 text-md font-semibold rounded py-2 px-4 bg-yellow-500 text-white hover:bg-yellow-600 text-center"
               onClick={onClose}
             >
               View Full Exhibition →
