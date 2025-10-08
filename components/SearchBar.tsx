@@ -9,9 +9,9 @@ export default function SearchBar({ handleSearch, loading }: SearchBarProps) {
   return (
     <form
       onSubmit={handleSearch}
-      className="w-full flex flex-col sm:flex-row gap-2 items-start sm:items-center"
+      className="w-full flex flex-col sm:flex-row gap-2 items-start sm:items-center "
     >
-      <div className="flex-1 w-full flex gap-2">
+      <div className="flex-1 w-full flex gap-2 ">
         <label htmlFor="search" className="sr-only">
           Search artworks
         </label>
@@ -24,8 +24,8 @@ export default function SearchBar({ handleSearch, loading }: SearchBarProps) {
           placeholder="Search artworks…"
           aria-label="Search artworks"
           disabled={loading}
-          className="flex-1 px-4 py-2 rounded-full bg-white border border-gray-300 
-                     focus:outline-none focus:border-yellow-400 
+          className="flex-1 px-4 py-2 rounded-full bg-white border  border-gray-300 
+                     focus:outline-none focus:border-yellow-400 placeholder-gray-600 text-gray-600
                      focus:shadow-[0_0_20px_rgba(250,204,21,0.4)]
                      transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
         />

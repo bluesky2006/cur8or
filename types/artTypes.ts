@@ -25,6 +25,7 @@ export interface AICArtwork {
   artist_display: string;
   date_display: string;
   image_id: string | null;
+  image_url: string;
   description: string | null;
   thumbnail?: {
     lqip: string;
@@ -34,6 +35,9 @@ export interface AICArtwork {
   };
   medium_display: string;
   api_link: string;
+  provenance_text: string;
+  exhibition_history: string;
+  credit_line: string;
 }
 
 // 2. Normalised Internal Data Model
@@ -76,8 +80,6 @@ export interface ImageToggleProps {
 
 export interface HeaderProps {
   handleSearch: (e: React.FormEvent<HTMLFormElement>) => void;
-  showWithImagesOnly: boolean;
-  setShowWithImagesOnly: (val: boolean) => void;
   hasResults: boolean;
   exhibitionCount: number;
   onShowExhibition: () => void;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ArtworkList from "../../components/ArtworkList";
 import { useExhibition } from "../../context/ExhibitionContext";
 import { useSearchContext } from "../../context/SearchContext";
@@ -8,14 +8,11 @@ import ExhibitionDrawer from "../../components/ExhibitionDrawer";
 import Header from "../../components/Header";
 import BackgroundSlideshow from "../../components/BackgroundSlideshow";
 import { searchAllMuseums } from "../../lib/api/searchAllMuseums";
-import type { NormalisedArtwork } from "../../types/artTypes";
 
 export default function Home() {
   const { query, results, setResults, hasSearched, setHasSearched } = useSearchContext();
-  const [filteredResults, setFilteredResults] = useState<NormalisedArtwork[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showWithImagesOnly, setShowWithImagesOnly] = useState(false);
 
   const { exhibition } = useExhibition();
   const [showExhibition, setShowExhibition] = useState(false);
@@ -44,10 +41,6 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    setFilteredResults(showWithImagesOnly ? results.filter((art) => art.imageUrl) : results);
-  }, [results, showWithImagesOnly]);
-
   const loadMore = async () => {
     if (!query.trim()) return;
     setLoading(true);
@@ -72,8 +65,6 @@ export default function Home() {
         <main className={`w-full max-w-6xl ${hasResults ? "pt-48 lg:pt-16" : ""}`}>
           <Header
             handleSearch={handleSearch}
-            showWithImagesOnly={showWithImagesOnly}
-            setShowWithImagesOnly={setShowWithImagesOnly}
             hasResults={hasResults}
             exhibitionCount={exhibition.length}
             onShowExhibition={() => setShowExhibition(true)}
@@ -90,7 +81,7 @@ export default function Home() {
             </div>
           )}
 
-          <ArtworkList results={filteredResults} />
+          <ArtworkList results={results} />
 
           {hasResults && (
             <div className="mt-6 flex justify-center">
