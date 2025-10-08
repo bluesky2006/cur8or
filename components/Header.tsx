@@ -4,14 +4,11 @@ import { useEffect, useState } from "react";
 import Logo from "./Logo";
 import SearchBar from "./SearchBar";
 import MyExhibitionButton from "./MyExhibitionButton";
-import ImageToggle from "./ImageToggle";
 import { useSearchContext } from "../context/SearchContext";
 import { HeaderProps } from "../types/artTypes";
 
 export default function Header({
   handleSearch,
-  showWithImagesOnly,
-  setShowWithImagesOnly,
   hasResults,
   exhibitionCount,
   onShowExhibition,
@@ -47,32 +44,40 @@ export default function Header({
           ${
             hasResults
               ? "flex-col lg:flex-row items-center gap-4 sm:gap-4"
-              : "flex-col text-center gap-6"
+              : "flex-col text-center items-center justify-center gap-6"
           }
         `}
       >
         <Logo big={!hasResults} resetSearch={resetSearch} hasResults={hasResults} />
 
-        <div
-          className={hasResults ? "w-full sm:flex-1 sm:max-w-xl" : "w-full max-w-2xl mx-auto mt-4"}
-        >
-          <SearchBar handleSearch={handleSearch} loading={loading} />
-        </div>
+        {!hasResults && (
+          <div className="bg-white/35 backdrop-blur-md shadow-lg mt-4 p-4 rounded-4xl inline-flex items-center justify-center gap-4 mx-auto">
+            <div className="w-full max-w-2xl mx-auto">
+              <SearchBar handleSearch={handleSearch} loading={loading} />
+              <p className="text-sm text-gray-900 mt-8">
+                Search, explore and curate artworks from the Art Institute of Chicago and the
+                Cleveland Museum of Art.
+              </p>
+            </div>
+          </div>
+        )}
 
         {hasResults && (
-          <div
-            className="
-              w-full lg:w-auto
-              flex flex-wrap justify-center lg:justify-end items-center
-              gap-6 mt-3 lg:mt-0 lg:ml-auto
-            "
-          >
-            <ImageToggle
-              showWithImagesOnly={showWithImagesOnly}
-              setShowWithImagesOnly={setShowWithImagesOnly}
-            />
-            <MyExhibitionButton exhibitionCount={exhibitionCount} onClick={onShowExhibition} />
-          </div>
+          <>
+            <div className="w-full sm:flex-1 sm:max-w-xl">
+              <SearchBar handleSearch={handleSearch} loading={loading} />
+            </div>
+
+            <div
+              className="
+                w-full lg:w-auto
+                flex flex-wrap justify-center lg:justify-end items-center
+                gap-6 mt-3 lg:mt-0 lg:ml-auto
+              "
+            >
+              <MyExhibitionButton exhibitionCount={exhibitionCount} onClick={onShowExhibition} />
+            </div>
+          </>
         )}
       </div>
     </div>
