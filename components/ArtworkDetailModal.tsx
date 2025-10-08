@@ -56,7 +56,7 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
           )}
         </div>
         <div className="w-1/2 p-6 flex flex-col overflow-y-auto">
-          <h3 id={`title-${art.id}`} className="text-xl font-semibold mb-2 leading-snug">
+          <h3 id={`title-${art.id}`} className="text-xl font-semibold mb-2 leading-snug dark:text-gray-800">
             {art.title}
           </h3>
           <p className="text-sm text-gray-700 mb-1">{art.artist}</p>

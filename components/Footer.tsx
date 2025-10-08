@@ -2,8 +2,8 @@
 
 export default function Footer() {
   return (
-    <footer className="mt-24 border-t border-gray-200 bg-white">
-      <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600">
+    <footer className="mt-24 border-t border-gray-200 bg-white dark:bg-black">
+      <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600 dark:text-white">
         <p className="text-center sm:text-left">
           © {new Date().getFullYear()} <span className="text-yellow-600">Simon Busby</span>. All
           rights reserved.

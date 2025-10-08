@@ -25,7 +25,7 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 z-10 bg-white px-6 pt-6 pb-3 border-b border-gray-200 flex justify-between items-center flex-shrink-0">
-          <h2 className="text-xl font-semibold">My Exhibition</h2>
+          <h2 className="text-xl font-semibold dark:text-gray-800">My Exhibition</h2>
           <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700 text-xl leading-none"
@@ -62,7 +62,7 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
                       )}
 
                       <div className="flex flex-col justify-between">
-                        <p className="font-medium line-clamp-3">{art.title}</p>
+                        <p className="font-medium line-clamp-3 dark:text-gray-800">{art.title}</p>
                         <p className="text-sm text-gray-600 line-clamp-1">{art.artist}</p>
                       </div>
                     </div>

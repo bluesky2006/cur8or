@@ -34,7 +34,7 @@ export default function Header({
     <div
       className={`${
         hasResults
-          ? `fixed top-0 left-0 w-full z-50 bg-white ${scrolled ? "shadow" : ""}`
+          ? `fixed top-0 left-0 w-full z-50 bg-white dark:bg-black ${scrolled ? "shadow" : ""}`
           : "w-full"
       }`}
     >
@@ -48,12 +48,12 @@ export default function Header({
           }
         `}
       >
-        <Logo big={!hasResults} resetSearch={resetSearch} hasResults={hasResults} />
+        <Logo resetSearch={resetSearch} hasResults={hasResults} />
 
         {!hasResults && (
           <div className="w-full max-w-2xl mx-auto">
             <SearchBar handleSearch={handleSearch} loading={loading} />
-            <p className="text-sm text-gray-100 mt-8 tracking-wide drop-shadow-md">
+            <p className="text-xs text-gray-100 mt-8 tracking-wide drop-shadow-md">
               Search, explore and curate art from the Art Institute of Chicago and the Cleveland
               Museum of Art.
             </p>

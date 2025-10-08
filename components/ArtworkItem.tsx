@@ -70,7 +70,7 @@ export default function ArtworkItem({ art }: ArtworkItemProps) {
           )}
         </div>
         <div className="flex flex-col gap-0.5">
-          <h2 className="mt-2 font-semibold line-clamp-2 leading-tight min-h-[2.5rem]">
+          <h2 className="mt-2 font-semibold line-clamp-2 leading-tight min-h-[2.5rem] dark:text-gray-800">
             {art.title}
           </h2>
           <p className="text-sm text-gray-600 line-clamp-1">by {art.artist}</p>
