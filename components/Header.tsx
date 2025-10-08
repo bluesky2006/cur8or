@@ -51,14 +51,12 @@ export default function Header({
         <Logo big={!hasResults} resetSearch={resetSearch} hasResults={hasResults} />
 
         {!hasResults && (
-          <div className="bg-white/35 backdrop-blur-md shadow-lg mt-4 p-4 rounded-4xl inline-flex items-center justify-center gap-4 mx-auto">
-            <div className="w-full max-w-2xl mx-auto">
-              <SearchBar handleSearch={handleSearch} loading={loading} />
-              <p className="text-sm text-gray-900 mt-8">
-                Search, explore and curate artworks from the Art Institute of Chicago and the
-                Cleveland Museum of Art.
-              </p>
-            </div>
+          <div className="w-full max-w-2xl mx-auto">
+            <SearchBar handleSearch={handleSearch} loading={loading} />
+            <p className="text-sm text-gray-100 mt-8 tracking-wide drop-shadow-md">
+              Search, explore and curate art from the Art Institute of Chicago and the Cleveland
+              Museum of Art.
+            </p>
           </div>
         )}
 
