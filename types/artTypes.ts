@@ -1,21 +1,14 @@
-// 1. Raw API Types
+// 1. Raw API Shapes ----------------------------------------------------------
 
 export interface CMAArtwork {
   id: string | number;
   title: string;
-  creators: {
-    description?: string;
-    name?: string;
-  }[];
+  creators: { name?: string; description?: string }[];
   description?: string;
   wall_description?: string;
   creation_date?: string;
   creation_date_earliest?: string;
-  images?: {
-    web?: {
-      url: string;
-    };
-  };
+  images?: { web?: { url: string } };
   url: string;
 }
 
@@ -24,23 +17,25 @@ export interface AICArtwork {
   title: string;
   artist_display: string;
   date_display: string;
-  image_id: string | null;
-  image_url: string;
-  description: string | null;
-  thumbnail?: {
-    lqip: string;
-    width: number;
-    height: number;
-    alt_text: string | null;
-  };
   medium_display: string;
-  api_link: string;
-  provenance_text: string;
-  exhibition_history: string;
-  credit_line: string;
+  image_id: string;
+  image_url: string;
+
+  thumbnail?: {
+    lqip?: string;
+    width?: number;
+    height?: number;
+    alt_text?: string | null;
+  };
+
+  description?: string | null;
+  api_link?: string;
+  provenance_text?: string;
+  exhibition_history?: string;
+  credit_line?: string;
 }
 
-// 2. Normalised Internal Data Model
+// 2. Normalised Internal Model ----------------------------------------------
 
 export type NormalisedArtwork = {
   id: string;
@@ -53,16 +48,14 @@ export type NormalisedArtwork = {
   artworkUrl?: string;
 };
 
-// 3. Component Props
+// 3. Component Props ---------------------------------------------------------
 
 export interface ArtworkItemProps {
   art: NormalisedArtwork;
 }
-
 export interface ArtworkListProps {
   results: NormalisedArtwork[];
 }
-
 export interface ArtworkDetailModalProps {
   art: NormalisedArtwork;
   onClose: () => void;
@@ -91,17 +84,10 @@ export interface MyExhibitionButtonProps {
   onClick: () => void;
 }
 
-export type LogoHeaderProps = {
-  resetSearch?: () => void;
-  hasResults?: boolean;
-};
+export type LogoHeaderProps = { resetSearch?: () => void; hasResults?: boolean };
+export type ExhibitionDrawerProps = { show: boolean; onClose: () => void };
 
-export type ExhibitionDrawerProps = {
-  show: boolean;
-  onClose: () => void;
-};
-
-// 4. Context Types
+// 4. Context Types -----------------------------------------------------------
 
 export type ExhibitionContextType = {
   exhibition: NormalisedArtwork[];
