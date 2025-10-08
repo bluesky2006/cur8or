@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import ArtworkList from "../../components/ArtworkList";
 import { useExhibition } from "../../context/ExhibitionContext";
 import { useSearchContext } from "../../context/SearchContext";
-import ExhibitionDrawer from "../../components/ExhibitionDrawer";
-import Header from "../../components/Header";
-import BackgroundSlideshow from "../../components/BackgroundSlideshow";
 import { searchAllMuseums } from "../../lib/api/searchAllMuseums";
+import ArtworkList from "../../components/ArtworkList";
+import BackgroundSlideshow from "../../components/BackgroundSlideshow";
+import ExhibitionDrawer from "../../components/ExhibitionDrawer";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 
 export default function Home() {
   const { query, results, setResults, hasSearched, setHasSearched } = useSearchContext();
@@ -94,6 +95,7 @@ export default function Home() {
               </button>
             </div>
           )}
+          {hasResults && <Footer />}
         </main>
 
         <ExhibitionDrawer show={showExhibition} onClose={() => setShowExhibition(false)} />
