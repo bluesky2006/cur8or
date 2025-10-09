@@ -24,3 +24,25 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer base {
+  h1 {
+    @apply mt-2 font-semibold line-clamp-2 leading-tight min-h-[2.5rem] dark:text-gray-800;
+  }
+
+  h2 {
+    @apply text-xl font-semibold mb-2 leading-snug dark:text-gray-800;
+  }
+
+  h3 {
+    @apply font-medium line-clamp-3 dark:text-gray-800;
+  }
+
+  h4 {
+    @apply text-sm text-gray-600 line-clamp-2;
+  }
+
+  p {
+    @apply text-gray-600 text-sm;
+  }
+}

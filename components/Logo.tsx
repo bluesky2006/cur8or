@@ -19,7 +19,7 @@ export default function Logo({ resetSearch, hasResults }: LogoHeaderProps) {
       `}
       aria-disabled={!hasResults}
     >
-      <h1>cur8or</h1>
+      <span>cur8or</span>
     </header>
   );
 }

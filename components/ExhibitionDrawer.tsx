@@ -25,7 +25,7 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 z-10 bg-white px-6 pt-6 pb-3 border-b border-gray-200 flex justify-between items-center flex-shrink-0">
-          <h2 className="text-xl font-semibold dark:text-gray-800">My Exhibition</h2>
+          <h1>My Exhibition</h1>
           <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700 text-xl leading-none"
@@ -36,10 +36,10 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
 
         <div className="flex-1 overflow-y-auto px-6 py-4 overscroll-contain">
           {exhibition.length === 0 ? (
-            <p className="text-gray-600 mt-2">No artworks added yet.</p>
+            <p className="mt-2">No artworks added yet.</p>
           ) : (
             <>
-              <p className="text-gray-600 mb-4">
+              <p className="mt-2 mb-4">
                 You currently have {exhibition.length}{" "}
                 {exhibition.length === 1 ? "artwork" : "artworks"} in your exhibition.
               </p>
@@ -62,8 +62,8 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
                       )}
 
                       <div className="flex flex-col justify-between">
-                        <p className="font-medium line-clamp-3 dark:text-gray-800">{art.title}</p>
-                        <p className="text-sm text-gray-600 line-clamp-1">{art.artist}</p>
+                        <h3>{art.title}</h3>
+                        <h4>by {art.artist}</h4>
                       </div>
                     </div>
 
@@ -84,17 +84,17 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
           <div className="flex-shrink-0 bg-white px-6 p-6 flex justify-between items-center gap-4">
             <button
               onClick={clearExhibition}
-              className="flex-1 text-md font-semibold rounded py-2 px-4 bg-red-500 text-white hover:bg-red-600 cursor-pointer text-center"
+              className="flex-1 text-md rounded py-2 px-4 bg-red-500 text-white hover:bg-red-600 cursor-pointer text-center"
             >
               Remove all exhibits
             </button>
 
             <Link
               href="/my-exhibition"
-              className="flex-1 text-md font-semibold rounded py-2 px-4 bg-yellow-500 text-white hover:bg-yellow-600 text-center"
+              className="flex-1 text-md rounded py-2 px-4 bg-yellow-500 text-white hover:bg-yellow-600 text-center"
               onClick={onClose}
             >
-              View Full Exhibition →
+              View your exhibition →
             </Link>
           </div>
         )}

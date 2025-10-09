@@ -56,11 +56,9 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
           )}
         </div>
         <div className="w-1/2 p-6 flex flex-col overflow-y-auto">
-          <h3 id={`title-${art.id}`} className="text-xl font-semibold mb-2 leading-snug dark:text-gray-800">
-            {art.title}
-          </h3>
-          <p className="text-sm text-gray-700 mb-1">{art.artist}</p>
-          <p className="text-sm text-gray-500 mb-4 pb-2 border-b border-gray-300">{art.date}</p>
+          <h2 id={`title-${art.id}`}>{art.title}</h2>
+          <h3 className="text-sm mb-1">{art.artist}</h3>
+          <p className="text-gray-500 mb-4 pb-2 border-b border-gray-300">{art.date}</p>
           <div
             id={`desc-${art.id}`}
             ref={descRef}
@@ -71,7 +69,7 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
             <button
               onClick={() => removeFromExhibition(art.id)}
               aria-label={`Remove ${art.title} from exhibition`}
-              className="mt-4 text-md font-semibold rounded py-2 bg-red-500 text-white hover:bg-red-600 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-yellow-400"
+              className="mt-4 text-md rounded py-2 bg-red-500 text-white hover:bg-red-600 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-yellow-400"
             >
               Remove from exhibition
             </button>
@@ -79,7 +77,7 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
             <button
               onClick={() => addToExhibition(art)}
               aria-label={`Add ${art.title} to exhibition`}
-              className="mt-4 text-md font-semibold rounded py-2 bg-yellow-500 text-white hover:bg-yellow-600"
+              className="mt-4 text-md rounded py-2 bg-yellow-500 text-white hover:bg-yellow-600"
             >
               Add to exhibition
             </button>
@@ -89,7 +87,7 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
               href={art.artworkUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-block text-center text-md font-semibold rounded py-2 bg-blue-500 text-white hover:bg-blue-600 transition"
+              className="mt-3 inline-block text-center text-md rounded py-2 bg-blue-500 text-white hover:bg-blue-600 transition"
             >
               Find out more →
             </a>

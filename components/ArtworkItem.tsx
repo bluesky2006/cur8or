@@ -70,12 +70,10 @@ export default function ArtworkItem({ art }: ArtworkItemProps) {
           )}
         </div>
         <div className="flex flex-col gap-0.5">
-          <h2 className="mt-2 font-semibold line-clamp-2 leading-tight min-h-[2.5rem] dark:text-gray-800">
-            {art.title}
-          </h2>
-          <p className="text-sm text-gray-600 line-clamp-1">by {art.artist}</p>
-          <p className="text-sm text-gray-600">Created {art.date}</p>
-          <p className="text-xs text-gray-600">
+          <h1>{art.title}</h1>
+          <h4 className="line-clamp-1">by {art.artist}</h4>
+          <p>Created {art.date}</p>
+          <p className="text-xs">
             Source: {art.source === "cma" ? "Cleveland Art Museum" : "Art Institute of Chicago"}
           </p>
         </div>
