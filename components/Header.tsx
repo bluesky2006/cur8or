@@ -40,42 +40,43 @@ export default function Header({
     >
       <div
         className={`
-          max-w-6xl mx-auto p-4 flex 
+          mx-auto flex 
           ${
             hasResults
-              ? "flex-col lg:flex-row items-center gap-4 sm:gap-4"
-              : "flex-col text-center items-center justify-center gap-6"
+              ? "flex-col lg:flex-row items-center gap-4 sm:gap-4 max-w-6xl "
+              : "flex-col text-center items-center justify-center gap-6 max-w-2xl "
           }
         `}
       >
-        <Logo resetSearch={resetSearch} hasResults={hasResults} />
-
         {!hasResults && (
-          <div className="w-full max-w-2xl mx-auto">
-            <SearchBar handleSearch={handleSearch} loading={loading} />
-            <p className="text-xs text-gray-100 mt-8 tracking-wide drop-shadow-md">
-              Search, explore and curate art from the Art Institute of Chicago and the Cleveland
-              Museum of Art.
-            </p>
+          <div className="w-full flex flex-col items-center">
+            <Logo resetSearch={resetSearch} hasResults={hasResults} />
+            <div className="w-full max-w-[1100px] mx-auto mt-8">
+              <SearchBar handleSearch={handleSearch} loading={loading} />
+              <p className="text-xs text-gray-100 mt-8 tracking-wide drop-shadow-md text-center">
+                Search, explore and curate art from the Art Institute of Chicago and the Cleveland
+                Museum of Art.
+              </p>
+            </div>
           </div>
         )}
-
         {hasResults && (
-          <>
-            <div className="w-full sm:flex-1 sm:max-w-xl">
+          <div className="w-full flex items-center justify-between gap-4 p-4">
+            {/* Left: Logo */}
+            <div className="flex-shrink-0">
+              <Logo resetSearch={resetSearch} hasResults={hasResults} />
+            </div>
+
+            {/* Center: Search bar */}
+            <div className="flex-1 max-w-xl">
               <SearchBar handleSearch={handleSearch} loading={loading} />
             </div>
 
-            <div
-              className="
-                w-full lg:w-auto
-                flex flex-wrap justify-center lg:justify-end items-center
-                gap-6 mt-3 lg:mt-0 lg:ml-auto
-              "
-            >
+            {/* Right: My Exhibition button */}
+            <div className="flex-shrink-0">
               <MyExhibitionButton exhibitionCount={exhibitionCount} onClick={onShowExhibition} />
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>

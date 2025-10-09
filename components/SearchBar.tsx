@@ -34,7 +34,7 @@ export default function SearchBar({ handleSearch, loading }: SearchBarProps) {
           type="submit"
           disabled={loading}
           className="bg-yellow-500 text-white px-6 py-2 rounded-full hover:bg-yellow-600 
-                     transition-colors cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed
+                     transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed
                      flex items-center justify-center gap-2"
         >
           {loading && (
