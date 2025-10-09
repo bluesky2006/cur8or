@@ -8,12 +8,7 @@ import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-ki
 import SortableItem from "./SortableItem";
 
 export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProps) {
-  const {
-    exhibition,
-    removeFromExhibition,
-    clearExhibition,
-    setExhibition,
-  } = useExhibition();
+  const { exhibition, removeFromExhibition, clearExhibition, setExhibition } = useExhibition();
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;

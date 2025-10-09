@@ -20,7 +20,6 @@ export default function SortableItem({ art, removeFromExhibition }: SortableItem
       style={style}
       className="relative flex items-center border-b border-gray-300 pb-6 gap-3 pt-2 pr-12 bg-white rounded"
     >
-      {/* Drag handle */}
       <div
         {...attributes}
         {...listeners}
