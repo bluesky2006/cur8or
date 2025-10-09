@@ -9,7 +9,7 @@ export default function MyExhibitionButton({ exhibitionCount, onClick }: MyExhib
       className="ml-auto flex bg-white text-yellow-500 border border-yellow-500 px-6 py-2 rounded 
         hover:bg-yellow-500 hover:text-white transition-colors cursor-pointer dark:bg-black"
     >
-      My Exhibition ({exhibitionCount})
+      My Exhibition {exhibitionCount > 0 ? `(${exhibitionCount})` : null}
     </button>
   );
 }
