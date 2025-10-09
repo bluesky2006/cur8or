@@ -87,6 +87,11 @@ export interface MyExhibitionButtonProps {
 export type LogoHeaderProps = { resetSearch?: () => void; hasResults?: boolean };
 export type ExhibitionDrawerProps = { show: boolean; onClose: () => void };
 
+export type SortableItemProps = {
+  art: NormalisedArtwork;
+  removeFromExhibition: (id: string) => void; // 👈 match context
+};
+
 // 4. Context Types -----------------------------------------------------------
 
 export type ExhibitionContextType = {
@@ -94,6 +99,7 @@ export type ExhibitionContextType = {
   addToExhibition: (artwork: NormalisedArtwork) => void;
   removeFromExhibition: (id: string) => void;
   clearExhibition: () => void;
+  setExhibition: React.Dispatch<React.SetStateAction<NormalisedArtwork[]>>;
 };
 
 export type SearchContextType = {

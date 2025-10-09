@@ -1,13 +1,30 @@
 "use client";
 
-import Image from "next/image";
-import { TrashIcon } from "@heroicons/react/24/solid";
 import { useExhibition } from "../context/ExhibitionContext";
 import { ExhibitionDrawerProps } from "../types/artTypes";
 import Link from "next/link";
+import { DndContext, closestCenter, DragEndEvent } from "@dnd-kit/core";
+import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
+import SortableItem from "./SortableItem";
 
 export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProps) {
-  const { exhibition, removeFromExhibition, clearExhibition } = useExhibition();
+  const {
+    exhibition,
+    removeFromExhibition,
+    clearExhibition,
+    setExhibition,
+  } = useExhibition();
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    setExhibition((prevItems) => {
+      const oldIndex = prevItems.findIndex((i) => i.id === active.id);
+      const newIndex = prevItems.findIndex((i) => i.id === over.id);
+      return arrayMove(prevItems, oldIndex, newIndex);
+    });
+  };
 
   return (
     <div
@@ -44,38 +61,22 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
                 {exhibition.length === 1 ? "artwork" : "artworks"} in your exhibition.
               </p>
 
-              <ul className="space-y-4">
-                {exhibition.map((art) => (
-                  <li
-                    key={art.id}
-                    className="relative flex items-center border-b border-gray-300 pb-6 gap-3 pt-2 pr-12"
-                  >
-                    <div className="flex gap-3">
-                      {art.imageUrl ? (
-                        <div className="relative w-24 aspect-square flex-shrink-0 rounded overflow-hidden bg-gray-100">
-                          <Image src={art.imageUrl} alt={art.title} fill className="object-cover" />
-                        </div>
-                      ) : (
-                        <div className="relative w-24 aspect-square flex-shrink-0 flex items-center justify-center bg-gray-200 text-xs text-gray-500 rounded">
-                          No Image
-                        </div>
-                      )}
-
-                      <div className="flex flex-col justify-between">
-                        <h3>{art.title}</h3>
-                        <h4>by {art.artist}</h4>
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={() => removeFromExhibition(art.id)}
-                      className="absolute top-0 right-0 p-1 text-red-500 hover:text-red-700"
-                    >
-                      <TrashIcon className="h-6 w-6" />
-                    </button>
-                  </li>
-                ))}
-              </ul>
+              <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                <SortableContext
+                  items={exhibition.map((item) => item.id)}
+                  strategy={verticalListSortingStrategy}
+                >
+                  <ul className="space-y-4">
+                    {exhibition.map((art) => (
+                      <SortableItem
+                        key={art.id}
+                        art={art}
+                        removeFromExhibition={removeFromExhibition}
+                      />
+                    ))}
+                  </ul>
+                </SortableContext>
+              </DndContext>
             </>
           )}
         </div>

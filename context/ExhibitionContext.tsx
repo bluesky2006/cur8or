@@ -25,9 +25,7 @@ export function ExhibitionProvider({ children }: { children: React.ReactNode }) 
 
   const addToExhibition = (artwork: NormalisedArtwork) => {
     setExhibition((prev) => {
-      if (prev.some((a) => a.id === artwork.id)) {
-        return prev;
-      }
+      if (prev.some((a) => a.id === artwork.id)) return prev;
       return [...prev, artwork];
     });
   };
@@ -42,7 +40,13 @@ export function ExhibitionProvider({ children }: { children: React.ReactNode }) 
 
   return (
     <ExhibitionContext.Provider
-      value={{ exhibition, addToExhibition, removeFromExhibition, clearExhibition }}
+      value={{
+        exhibition,
+        addToExhibition,
+        removeFromExhibition,
+        clearExhibition,
+        setExhibition, // 👈 add this line
+      }}
     >
       {children}
     </ExhibitionContext.Provider>
