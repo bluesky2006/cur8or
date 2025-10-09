@@ -12,7 +12,7 @@ export default function MyExhibitionPage() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       <div className="pt-4 px-6 md:px-12">
-        <div className="mb-8">
+        <div className="mb-4">
           <Link
             href="/"
             className="group inline-flex items-center gap-2 mt-3 text-md font-semibold text-yellow-500 hover:text-yellow-600 transition"
@@ -25,12 +25,14 @@ export default function MyExhibitionPage() {
             </span>
           </Link>
         </div>
-        <h1 className="text-3xl font-bold mb-4 text-gray-900">My Exhibition</h1>
+        <h1 className="text-2xl font-bold text-gray-900 pb-8 border-b-2 border-gray-200">
+          My Exhibition
+        </h1>
         {!hasArtworks ? (
           <p className="text-lg">You haven’t added any artworks yet.</p>
         ) : (
           <div className="overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 -mx-12 px-36">
-            <div className="flex gap-60 pb-32 items-center min-h-[calc(100vh-160px)] pt-28">
+            <div className="flex gap-60 pb-40 items-center min-h-[calc(100vh-160px)] pt-20">
               {exhibition.map((art, index) => (
                 <div key={`${art.id}-${index}`} className="flex-shrink-0 pr-12 last:pr-36">
                   <ExhibitionArtworkItem art={art} />
