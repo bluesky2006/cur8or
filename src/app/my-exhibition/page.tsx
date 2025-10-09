@@ -27,10 +27,10 @@ export default function MyExhibitionPage() {
         </div>
         <h1 className="text-3xl font-bold mb-4 text-gray-900">My Exhibition</h1>
         {!hasArtworks ? (
-          <p className="text-gray-700 text-lg">You haven’t added any artworks yet.</p>
+          <p className="text-lg">You haven’t added any artworks yet.</p>
         ) : (
           <div className="overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 -mx-12 px-36">
-            <div className="flex gap-60 pb-32 mt-16 items-center min-h-[600px]">
+            <div className="flex gap-60 pb-32 items-center min-h-[calc(100vh-160px)] pt-28">
               {exhibition.map((art, index) => (
                 <div key={`${art.id}-${index}`} className="flex-shrink-0 pr-12 last:pr-36">
                   <ExhibitionArtworkItem art={art} />
