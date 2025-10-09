@@ -36,9 +36,9 @@ export default function ExhibitionArtworkItem({ art }: ArtworkItemProps) {
             />
 
             <div className="absolute inset-0 left-1/2 -translate-x-1/2 w-[88%] bg-gray-900/0 group-hover:bg-gray-900/50 transition-all duration-300 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 text-center text-white p-4">
-              <p className="font-semibold text-lg leading-tight">{art.title}</p>
-              <p className="text-sm mt-1">{art.artist}</p>
-              <p className="text-xs opacity-80">{art.date}</p>
+              <p className="font-semibold text-lg leading-tight text-gray-100">{art.title}</p>
+              <p className="text-sm mt-1 text-gray-100">{art.artist}</p>
+              <p className="text-xs text-gray-100">{art.date}</p>
             </div>
           </div>
         ) : (
