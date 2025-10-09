@@ -20,29 +20,32 @@ export default function ExhibitionArtworkModal({ art, onClose }: ArtworkDetailMo
       aria-modal="true"
       onClick={onClose}
     >
-      <div className="relative flex items-center justify-center w-full h-full p-6">
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        aria-label="Close artwork view"
+        className="absolute top-6 right-8 z-[60] text-white text-4xl font-light hover:scale-110 transition-transform duration-200"
+      >
+        ×
+      </button>
+
+      <div
+        className="relative flex items-center justify-center w-full h-full p-6"
+        onClick={(e) => e.stopPropagation()}
+      >
         {art.imageUrl ? (
-          <div className="relative" onClick={(e) => e.stopPropagation()}>
-            <Image
-              src={art.imageUrl}
-              alt={art.title || "Artwork"}
-              width={2400}
-              height={1800}
-              className="max-h-[95vh] max-w-[95vw] w-auto h-auto object-contain rounded shadow-2xl transition-transform duration-300 ease-out"
-              priority
-            />
-            <button
-              onClick={onClose}
-              aria-label="Close artwork view"
-              className="absolute top-4 right-4 text-white text-3xl font-normal hover:scale-110 transition-transform duration-200"
-            >
-              ×
-            </button>
-          </div>
+          <Image
+            src={art.imageUrl}
+            alt={art.title || "Artwork"}
+            width={2400}
+            height={1800}
+            className="max-h-[95vh] max-w-[95vw] w-auto h-auto object-contain rounded shadow-2xl transition-transform duration-300 ease-out"
+            priority
+          />
         ) : (
-          <div className="text-white text-lg" onClick={(e) => e.stopPropagation()}>
-            No image available
-          </div>
+          <div className="text-white text-lg">No image available</div>
         )}
       </div>
     </div>
