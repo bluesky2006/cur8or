@@ -46,3 +46,34 @@ body {
     @apply text-gray-600 text-sm;
   }
 }
+
+.artwork-frame {
+  @apply relative isolate;
+}
+
+.artwork-frame::before {
+  content: "";
+  position: absolute;
+  top: -16%;
+  left: -16%;
+  width: 132%;
+  height: 132%;
+  background: radial-gradient(circle, white, #f8f8f8);
+  box-shadow: inset 0 10px 0.5em rgba(0, 0, 0, 0.25), inset 0.1em 0 0.1em rgba(0, 0, 0, 0.1),
+    inset -0.1em 0 0.1em rgba(0, 0, 0, 0.05), 0 0.3em 0.2em #fff;
+  z-index: -10;
+}
+
+.artwork-frame::after {
+  content: "";
+  position: absolute;
+  top: -22.5%;
+  left: -22.5%;
+  width: 145%;
+  height: 145%;
+  background: #f8f8f8;
+  box-shadow: 0 1em 2em -1em rgba(0, 0, 0, 0.4), 0 2em 2em -1em rgba(0, 0, 0, 0.3),
+    0 3em 2em -1em rgba(0, 0, 0, 0.2), 0 4em 1.5em -1em rgba(0, 0, 0, 0.15),
+    0 2em 4em 0.5em rgba(0, 0, 0, 0.1), inset 0 0.2em 0.1em #fff;
+  z-index: -20;
+}
