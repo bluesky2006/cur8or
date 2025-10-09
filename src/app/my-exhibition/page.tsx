@@ -29,10 +29,10 @@ export default function MyExhibitionPage() {
         {!hasArtworks ? (
           <p className="text-gray-700 text-lg">You haven’t added any artworks yet.</p>
         ) : (
-          <div className="overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 -mx-6 px-6">
-            <div className="flex gap-6 pb-16 mt-8 items-center">
+          <div className="overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 -mx-12 px-36">
+            <div className="flex gap-60 pb-32 mt-16 items-center min-h-[600px]">
               {exhibition.map((art, index) => (
-                <div key={`${art.id}-${index}`} className="flex-shrink-0">
+                <div key={`${art.id}-${index}`}>
                   <ExhibitionArtworkItem art={art} />
                 </div>
               ))}
