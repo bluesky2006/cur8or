@@ -35,7 +35,15 @@ export async function aicSearchArtworks(
     thumbnail?: AICArtwork["thumbnail"];
   }[];
 
-  return rawData
+  const cleanQuery = query.trim().toLowerCase();
+
+  const strictMatches = rawData.filter((art) => {
+    const title = art.title?.toLowerCase() || "";
+    const artist = art.artist_display?.toLowerCase() || "";
+    return title.split(/\b/).includes(cleanQuery) || artist.split(/\b/).includes(cleanQuery);
+  });
+
+  return strictMatches
     .filter((art) => art.image_id)
     .map((art) => ({
       id: art.id,
