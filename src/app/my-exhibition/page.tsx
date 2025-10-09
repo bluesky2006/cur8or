@@ -32,7 +32,7 @@ export default function MyExhibitionPage() {
           <div className="overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 -mx-12 px-36">
             <div className="flex gap-60 pb-32 mt-16 items-center min-h-[600px]">
               {exhibition.map((art, index) => (
-                <div key={`${art.id}-${index}`}>
+                <div key={`${art.id}-${index}`} className="flex-shrink-0 pr-12 last:pr-36">
                   <ExhibitionArtworkItem art={art} />
                 </div>
               ))}
