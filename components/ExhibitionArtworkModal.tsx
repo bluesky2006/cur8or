@@ -15,12 +15,11 @@ export default function ExhibitionArtworkModal({ art, onClose }: ArtworkDetailMo
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm cursor-auto"
       role="dialog"
       aria-modal="true"
-      onClick={onClose} // clicking the backdrop closes
+      onClick={onClose}
     >
-      {/* Fullscreen flexbox, but no click-stop here */}
       <div className="relative flex items-center justify-center w-full h-full p-6">
         {art.imageUrl ? (
           <div className="relative" onClick={(e) => e.stopPropagation()}>
