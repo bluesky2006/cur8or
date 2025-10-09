@@ -14,7 +14,6 @@ export async function cmaSearchArtworks(query: string, skip = 0, limit = 6): Pro
     throw new Error(`CMA API error: ${res.status}`);
   }
 
-  // Extra safety filter in case the API includes any empty results
   const data = Array.isArray(json.data) ? json.data : [];
   const withImages = data.filter((art: CMAArtwork) => !!art.images?.web?.url);
 

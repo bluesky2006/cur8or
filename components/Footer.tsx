@@ -24,9 +24,6 @@ export default function Footer() {
           >
             Contact
           </a>
-          {/* <a href="/about" className="hover:text-yellow-600 transition-colors">
-            About
-          </a> */}
         </div>
       </div>
     </footer>
