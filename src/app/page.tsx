@@ -76,7 +76,7 @@ export default function Home() {
 
           {!loading && hasSearched && results.length === 0 && !error && (
             <div className="flex items-center justify-center h-[10vh]">
-              <p className="bg-black/60 text-white px-4 py-2 rounded-full text-center">
+              <p className="bg-black/60 text-white px-4 py-2 rounded-full text-center text-sm">
                 No results found for “{query}”
               </p>
             </div>
