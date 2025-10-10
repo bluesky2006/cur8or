@@ -36,7 +36,7 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
       onClick={onClose}
     >
       <div
-        className="bg-white rounded shadow-lg max-w-3xl w-full h-[80vh] overflow-hidden flex relative"
+        className="bg-white rounded shadow-lg w-[95%] sm:w-full max-w-3xl aspect-[6/7] sm:aspect-auto sm:h-[80vh] overflow-hidden flex flex-col sm:flex-row relative"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -46,7 +46,7 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
         >
           ✕
         </button>
-        <div className="w-1/2 relative bg-gray-100">
+        <div className="hidden sm:block w-1/2 relative bg-gray-100">
           {art.imageUrl ? (
             <Image src={art.imageUrl} alt={art.title} fill className="object-cover" />
           ) : (
@@ -55,43 +55,47 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
             </div>
           )}
         </div>
-        <div className="w-1/2 p-6 flex flex-col overflow-y-auto">
-          <h2 id={`title-${art.id}`}>{art.title}</h2>
-          <h3 className="text-sm mb-1">{art.artist}</h3>
-          <p className="text-gray-500 mb-4 pb-2 border-b border-gray-300">{art.date}</p>
-          <div
-            id={`desc-${art.id}`}
-            ref={descRef}
-            className="text-sm text-gray-600 [&>p]:mb-4 [&_a]:font-bold [&_a]:text-neutral-800 [&_a:hover]:text-neutral-900"
-            dangerouslySetInnerHTML={{ __html: art.description }}
-          />
-          {alreadyAdded ? (
-            <button
-              onClick={() => removeFromExhibition(art.id)}
-              aria-label={`Remove ${art.title} from exhibition`}
-              className="mt-4 text-md rounded py-2 bg-red-500 text-white hover:bg-red-600 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-amber-400"
-            >
-              Remove from exhibition
-            </button>
-          ) : (
-            <button
-              onClick={() => addToExhibition(art)}
-              aria-label={`Add ${art.title} to exhibition`}
-              className="mt-4 text-md rounded py-2 bg-amber-500 text-white hover:bg-amber-600"
-            >
-              Add to exhibition
-            </button>
-          )}
-          {art.artworkUrl && (
-            <a
-              href={art.artworkUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 inline-block text-center text-md rounded py-2 bg-neutral-500 text-white hover:bg-neutral-600 transition"
-            >
-              Find out more →
-            </a>
-          )}
+        <div className="w-full sm:w-1/2 p-6 flex flex-col justify-between h-full">
+          <div>
+            <h2 id={`title-${art.id}`}>{art.title}</h2>
+            <h3 className="text-sm mb-1">{art.artist}</h3>
+            <p className="text-gray-500 mb-4 pb-2 border-b border-gray-300">{art.date}</p>
+            <div
+              id={`desc-${art.id}`}
+              ref={descRef}
+              className="text-sm text-gray-600 [&>p]:mb-4 [&_a]:font-bold [&_a]:text-neutral-800 [&_a:hover]:text-neutral-900"
+              dangerouslySetInnerHTML={{ __html: art.description }}
+            />
+          </div>
+          <div className="w-full flex flex-col overflow-y-auto">
+            {alreadyAdded ? (
+              <button
+                onClick={() => removeFromExhibition(art.id)}
+                aria-label={`Remove ${art.title} from exhibition`}
+                className="mt-4 text-md rounded py-2 bg-red-500 text-white hover:bg-red-600 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-amber-400"
+              >
+                Remove from exhibition
+              </button>
+            ) : (
+              <button
+                onClick={() => addToExhibition(art)}
+                aria-label={`Add ${art.title} to exhibition`}
+                className="mt-4 text-md rounded py-2 bg-amber-500 text-white hover:bg-amber-600"
+              >
+                Add to exhibition
+              </button>
+            )}
+            {art.artworkUrl && (
+              <a
+                href={art.artworkUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-block text-center text-md rounded py-2 bg-neutral-500 text-white hover:bg-neutral-600 transition"
+              >
+                Find out more
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>
