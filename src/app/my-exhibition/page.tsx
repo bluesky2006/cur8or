@@ -32,9 +32,9 @@ export default function MyExhibitionPage() {
           <p className="text-lg">You haven’t added any artworks yet.</p>
         ) : (
           <div className="overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 -mx-12 px-36">
-            <div className="flex gap-60 pb-40 items-center min-h-[calc(100vh-160px)] pt-20">
+            <div className="flex gap-60 pb-32 items-center min-h-[calc(100vh-160px)] pt-12">
               {exhibition.map((art, index) => (
-                <div key={`${art.id}-${index}`} className="flex-shrink-0 pr-12 last:pr-36">
+                <div key={`${art.id}-${index}`} className="flex-shrink-0 pr-4 last:pr-36">
                   <ExhibitionArtworkItem art={art} />
                 </div>
               ))}
