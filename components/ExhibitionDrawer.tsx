@@ -30,9 +30,9 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
     >
       <div
         className={`
-          relative w-120 max-w-full h-full bg-white shadow-lg flex flex-col
+          relative w-120 max-w-full h-full bg-white flex flex-col
           transform transition-transform duration-300 ease-in-out
-          ${show ? "translate-x-0" : "translate-x-full"}
+          ${show ? "translate-x-0 shadow-lg" : "translate-x-full"}
         `}
         onClick={(e) => e.stopPropagation()}
       >
