@@ -13,7 +13,7 @@ export default function Logo({ resetSearch, hasResults }: LogoHeaderProps) {
       className={`
         text-amber-500
         ${hasResults ? "cursor-pointer hover:opacity-80" : "cursor-default"} 
-        ${!hasResults ? "text-9xl" : "text-5xl"}
+        ${!hasResults ? "text-8xl" : "text-5xl"}
         ${dmSerif.className}
         transition-colors duration-200
       `}
