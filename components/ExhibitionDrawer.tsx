@@ -36,12 +36,9 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
         `}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 z-10 bg-white px-6 pt-6 pb-3 border-b border-gray-200 flex justify-between items-center flex-shrink-0">
-          <h1>My Exhibition</h1>
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 text-xl leading-none"
-          >
+        <div className="sticky top-0 z-10 bg-white px-6 py-4 border-b border-gray-200 flex justify-between items-center flex-shrink-0">
+          <h1 className="m-0 min-h-0">My Exhibition</h1>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700 text-lg">
             ✕
           </button>
         </div>

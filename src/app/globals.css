@@ -27,19 +27,19 @@ body {
 
 @layer base {
   h1 {
-    @apply mt-2 font-semibold line-clamp-2 leading-tight min-h-[2.5rem] dark:text-gray-800;
+    @apply m-0 mt-2 font-semibold line-clamp-2 leading-tight min-h-[2.5rem] dark:text-gray-800;
   }
 
   h2 {
-    @apply text-xl font-semibold mb-2 leading-snug dark:text-gray-800;
+    @apply m-0 text-xl font-semibold mb-2 leading-snug dark:text-gray-800;
   }
 
   h3 {
-    @apply font-medium line-clamp-3 dark:text-gray-800;
+    @apply m-0  mt-4 font-medium line-clamp-3 dark:text-gray-800;
   }
 
   h4 {
-    @apply text-sm text-gray-600 line-clamp-2;
+    @apply m-0 text-sm text-gray-600 line-clamp-2;
   }
 
   p {
