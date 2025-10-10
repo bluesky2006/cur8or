@@ -4,12 +4,15 @@ Curate your own virtual exhibition from real museum collections.
 
 **cur8or** is a virtual exhibition builder that lets users search, browse and curate artworks from major public collections. Designed for art lovers, students and curators-in-training, the app allows anyone to create a themed exhibition using open-access artworks from leading museums.
 
+- [Live demo](cur8or.vercel.app)
+
 ## ✨ Features
 
 - 🔍 Unified search across two museum APIs (Cleveland Museum of Art & Art Institute of Chicago)
 - 🖼️ Filter by image availability for cleaner browsing
-- 🖱️ Interactive exhibition view with hover overlays and artwork modals
+- 🖱️ Interactive exhibition view with hover overlays, artwork modals and CSS-styled picture frames for realistic presentation
 - ➕ Add or remove artworks to a personal exhibition collection
+- 🖐️ Sort artworks using drag and drop
 - 💾 Persistent exhibition and search state using Context + localStorage
 - 🔗 Visit artwork entries directly on each museum’s website for more information
 - 🎨 Responsive grid layout for search results
@@ -51,7 +54,9 @@ The app will be available at `http://localhost:3000`.
 
 ## 🖼️ Example Screenshot
 
-![cur8or search results](public/example-screenshot.png)
+![cur8or landing page](public/example-screenshot-1.png)
+![cur8or search results](public/example-screenshot-2.png)
+![cur8or My Exhibition page](public/example-screenshot-3.png)
 
 ## 📚 Folder Structure
 
@@ -63,13 +68,15 @@ The app will be available at `http://localhost:3000`.
 │   ├── ArtworkList.tsx
 │   ├── BackgroundSlideshow.tsx
 │   ├── ExhibitionArtworkItem.tsx
+│   ├── ExhibitionArtworkModal.tsx
 │   ├── ExhibitionDrawer.tsx
+│   ├── Footer.tsx
 │   ├── Header.tsx
-│   ├── ImageToggle.tsx
 │   ├── Logo.tsx
 │   ├── MyExhibitionButton.tsx
-│   └── SearchBar.tsx
-├── context/                        # Global context
+│   ├── SearchBar.tsx
+│   └── SortableItem.tsx
+├── context/                        # Global contexts
 │   ├── ExhibitionContext.tsx
 │   └── SearchContext.tsx
 ├── lib/
@@ -85,25 +92,14 @@ The app will be available at `http://localhost:3000`.
 ├── src/
 │   └── app/                        # Next.js App Router
 │       └── my-exhibition/
-│           └── page.tsx
+│           └── page.tsx            # My Exhibition page
 │       ├── globals.css
 │       ├── layout.tsx
 │       └── page.tsx                # Main landing page
 ├── types/
-│   └── artTypes.ts                 # Normalised artwork type
+│   └── artTypes.ts                 # TypeScript types
 ```
-
-## 🚧 In Progress
-
-- 🧮 More sorting and filtering options
-- 🔐 User login
 
 ## 📄 Licence
 
 MIT — free to use, remix and extend.
-
----
-
-## 💡 About
-
-Built as a final project for a JavaScript Skills Bootcamp by [Simon Busby](https://simonbusby.netlify.app). Inspired by a love of design, archives and accessible technology.
