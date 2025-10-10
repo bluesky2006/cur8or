@@ -56,7 +56,8 @@ The app will be available at `http://localhost:3000`.
 
 ![cur8or landing page](public/example-screenshot-1.png)
 ![cur8or search results](public/example-screenshot-2.png)
-![cur8or My Exhibition page](public/example-screenshot-3.png)
+![cur8or search results and My Exhibition slide-out drawer](public/example-screenshot-3.png)
+![cur8or My Exhibition page](public/example-screenshot-4.png)
 
 ## 📚 Folder Structure
 
