@@ -10,12 +10,10 @@ export default function Logo({ resetSearch, hasResults }: LogoHeaderProps) {
   return (
     <header
       onClick={hasResults ? resetSearch : undefined}
-      className={`
-        text-amber-500
+      className={`text-amber-500 transition-colors duration-200
         ${hasResults ? "cursor-pointer hover:opacity-80" : "cursor-default"} 
-        ${!hasResults ? "text-8xl" : "text-5xl"}
+        ${!hasResults ? "text-8xl" : "text-5xl -translate-y-1"}
         ${dmSerif.className}
-        transition-colors duration-200
       `}
       aria-disabled={!hasResults}
     >
