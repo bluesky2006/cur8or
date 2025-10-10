@@ -18,7 +18,7 @@ export default function SortableItem({ art, removeFromExhibition }: SortableItem
     <li
       ref={setNodeRef}
       style={style}
-      className="relative flex items-center border-b border-gray-300 pb-6 gap-3 pt-2 pr-12 bg-white rounded"
+      className="relative flex items-center border-b border-gray-300 pb-6 gap-3 pt-2 pr-12 bg-white"
     >
       <div
         {...attributes}
