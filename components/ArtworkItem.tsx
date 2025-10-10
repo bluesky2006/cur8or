@@ -43,7 +43,7 @@ export default function ArtworkItem({ art }: ArtworkItemProps) {
     ${
       alreadyAdded
         ? "bg-red-500 hover:bg-red-600 text-white px-3"
-        : "bg-yellow-500 hover:bg-yellow-600 text-white px-3"
+        : "bg-amber-500 hover:bg-amber-600 text-white px-3"
     }
   `}
         >

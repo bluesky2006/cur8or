@@ -15,7 +15,7 @@ export default function MyExhibitionPage() {
         <div className="mb-4">
           <Link
             href="/"
-            className="group inline-flex items-center gap-2 mt-3 text-md font-semibold text-yellow-500 hover:text-yellow-600 transition"
+            className="group inline-flex items-center gap-2 mt-3 text-md font-semibold text-amber-500 hover:text-amber-600 transition"
           >
             <span className="relative -top-0.5 text-2xl group-hover:-translate-x-1 transition-transform duration-300">
               ←

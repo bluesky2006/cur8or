@@ -36,13 +36,13 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-xl shadow-lg max-w-3xl w-full h-[80vh] overflow-hidden flex relative"
+        className="bg-white rounded shadow-lg max-w-3xl w-full h-[80vh] overflow-hidden flex relative"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
           aria-label="Close artwork details"
-          className="absolute top-2 right-3 py-2 px-3 rounded-xl hover:bg-gray-100 text-gray-500 hover:text-gray-700"
+          className="absolute top-2 right-3 py-2 px-3 text-gray-500 hover:scale-110 transition-transform duration-200"
         >
           ✕
         </button>
@@ -62,14 +62,14 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
           <div
             id={`desc-${art.id}`}
             ref={descRef}
-            className="text-sm text-gray-600 [&>p]:mb-4 [&_a]:font-bold [&_a]:text-blue-800 [&_a:hover]:text-blue-900"
+            className="text-sm text-gray-600 [&>p]:mb-4 [&_a]:font-bold [&_a]:text-neutral-800 [&_a:hover]:text-neutral-900"
             dangerouslySetInnerHTML={{ __html: art.description }}
           />
           {alreadyAdded ? (
             <button
               onClick={() => removeFromExhibition(art.id)}
               aria-label={`Remove ${art.title} from exhibition`}
-              className="mt-4 text-md rounded py-2 bg-red-500 text-white hover:bg-red-600 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-yellow-400"
+              className="mt-4 text-md rounded py-2 bg-red-500 text-white hover:bg-red-600 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-amber-400"
             >
               Remove from exhibition
             </button>
@@ -77,7 +77,7 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
             <button
               onClick={() => addToExhibition(art)}
               aria-label={`Add ${art.title} to exhibition`}
-              className="mt-4 text-md rounded py-2 bg-yellow-500 text-white hover:bg-yellow-600"
+              className="mt-4 text-md rounded py-2 bg-amber-500 text-white hover:bg-amber-600"
             >
               Add to exhibition
             </button>
@@ -87,7 +87,7 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
               href={art.artworkUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-block text-center text-md rounded py-2 bg-blue-500 text-white hover:bg-blue-600 transition"
+              className="mt-3 inline-block text-center text-md rounded py-2 bg-neutral-500 text-white hover:bg-neutral-600 transition"
             >
               Find out more →
             </a>

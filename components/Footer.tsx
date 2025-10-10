@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="mt-24 border-t border-gray-200 bg-white dark:bg-black">
       <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600 dark:text-white">
         <p className="text-center sm:text-left">
-          © {new Date().getFullYear()} <span className="text-yellow-600">Simon Busby</span>. All
+          © {new Date().getFullYear()} <span className="text-amber-600">Simon Busby</span>. All
           rights reserved.
         </p>
 
@@ -14,14 +14,11 @@ export default function Footer() {
             href="https://github.com/bluesky2006"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-yellow-600 transition-colors"
+            className="hover:text-amber-600 transition-colors"
           >
             GitHub
           </a>
-          <a
-            href="mailto:simon.busby@gmail.com"
-            className="hover:text-yellow-600 transition-colors"
-          >
+          <a href="mailto:simon.busby@gmail.com" className="hover:text-amber-600 transition-colors">
             Contact
           </a>
         </div>

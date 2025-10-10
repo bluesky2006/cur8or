@@ -11,7 +11,7 @@ export default function Logo({ resetSearch, hasResults }: LogoHeaderProps) {
     <header
       onClick={hasResults ? resetSearch : undefined}
       className={`
-        text-yellow-500
+        text-amber-500
         ${hasResults ? "cursor-pointer hover:opacity-80" : "cursor-default"} 
         ${!hasResults ? "text-9xl" : "text-5xl"}
         ${dmSerif.className}

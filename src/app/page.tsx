@@ -89,7 +89,7 @@ export default function Home() {
               <button
                 onClick={loadMore}
                 disabled={loading}
-                className="bg-yellow-500 disabled:opacity-50 text-white px-6 py-3 rounded hover:bg-yellow-600"
+                className="bg-amber-500 disabled:opacity-50 text-white px-6 py-3 rounded hover:bg-amber-600"
               >
                 {loading ? "Loading…" : "Show more"}
               </button>

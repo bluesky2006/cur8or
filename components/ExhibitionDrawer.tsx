@@ -87,7 +87,7 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
 
             <Link
               href="/my-exhibition"
-              className="flex-1 text-md rounded py-2 px-4 bg-yellow-500 text-white hover:bg-yellow-600 text-center"
+              className="flex-1 text-md rounded py-2 px-4 bg-amber-500 text-white hover:bg-amber-600 text-center"
               onClick={onClose}
             >
               View your exhibition →
