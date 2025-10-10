@@ -3,12 +3,27 @@
 import { useExhibition } from "../context/ExhibitionContext";
 import { ExhibitionDrawerProps } from "../types/artTypes";
 import Link from "next/link";
-import { DndContext, closestCenter, DragEndEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  closestCenter,
+  DragEndEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import SortableItem from "./SortableItem";
 
 export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProps) {
   const { exhibition, removeFromExhibition, clearExhibition, setExhibition } = useExhibition();
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    })
+  );
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -49,11 +64,15 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
           ) : (
             <>
               <p className="mt-2 mb-4">
-                You currently have {exhibition.length}{" "}
+                You currently have {exhibition.length}
                 {exhibition.length === 1 ? "artwork" : "artworks"} in your exhibition.
               </p>
 
-              <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+              >
                 <SortableContext
                   items={exhibition.map((item) => item.id)}
                   strategy={verticalListSortingStrategy}
@@ -77,17 +96,17 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
           <div className="flex-shrink-0 bg-white px-6 p-6 flex justify-between items-center gap-4">
             <button
               onClick={clearExhibition}
-              className="flex-1 text-md rounded py-2 px-4 bg-red-500 text-white hover:bg-red-600 cursor-pointer text-center"
+              className="flex-1 text-md rounded py-2 px-3 bg-red-500 text-white hover:bg-red-600 cursor-pointer text-center"
             >
               Remove all exhibits
             </button>
 
             <Link
               href="/my-exhibition"
-              className="flex-1 text-md rounded py-2 px-4 bg-amber-500 text-white hover:bg-amber-600 text-center"
+              className="flex-1 text-md rounded py-2 px-3 bg-amber-500 text-white hover:bg-amber-600 text-center"
               onClick={onClose}
             >
-              View your exhibition →
+              View your exhibition
             </Link>
           </div>
         )}

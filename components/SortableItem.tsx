@@ -18,15 +18,16 @@ export default function SortableItem({ art, removeFromExhibition }: SortableItem
     <li
       ref={setNodeRef}
       style={style}
-      className="relative flex items-center border-b border-gray-300 pb-6 gap-3 pt-2 pr-12 bg-white"
+      className="relative flex items-center border-b border-gray-300 pb-6 gap-2 pt-2 pr-12 bg-white"
     >
       <div
         {...attributes}
         {...listeners}
-        className="flex items-center justify-center p-2 text-gray-400 hover:text-gray-600 cursor-grab active:cursor-grabbing"
+        style={{ touchAction: "none" }}
+        className="flex items-center justify-center pl-0 p-2 text-gray-400 hover:text-gray-600 cursor-grab active:cursor-grabbing"
         title="Drag to reorder"
       >
-        <Bars3Icon className="h-5 w-5" />
+        <Bars3Icon className="h-6 w-6" />
       </div>
 
       <div className="flex gap-3 flex-1">
@@ -41,7 +42,7 @@ export default function SortableItem({ art, removeFromExhibition }: SortableItem
         )}
 
         <div className="flex flex-col justify-between">
-          <h3>{art.title}</h3>
+          <h3 className="line-clamp-2 m-0">{art.title}</h3>
           <h4>by {art.artist}</h4>
         </div>
       </div>
