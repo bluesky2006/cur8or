@@ -61,14 +61,22 @@ export default function Header({
           </div>
         )}
         {hasResults && (
-          <div className="w-full flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-4 sm:gap-4 p-4 text-center">
+          <div
+            className="
+      w-full max-w-6xl mx-auto
+      flex flex-col sm:flex-row
+      items-center sm:items-stretch
+      justify-center sm:justify-between
+      gap-4 p-4 text-center
+    "
+          >
             <div className="flex-shrink-0">
               <Logo resetSearch={resetSearch} hasResults={hasResults} />
             </div>
-            <div className="w-full sm:flex-1 sm:max-w-xl">
+            <div className="w-full sm:flex-1 sm:max-w-2xl">
               <SearchBar handleSearch={handleSearch} loading={loading} />
             </div>
-            <div className="flex-shrink-0 mt-2 sm:mt-0">
+            <div className="w-full sm:w-auto mt-2 sm:mt-0">
               <MyExhibitionButton exhibitionCount={exhibitionCount} onClick={onShowExhibition} />
             </div>
           </div>
