@@ -37,21 +37,18 @@ export default function ArtworkItem({ art }: ArtworkItemProps) {
           aria-label={
             alreadyAdded ? `Remove ${art.title} from exhibition` : `Add ${art.title} to exhibition`
           }
-          className={`
-    absolute top-6 right-6 rounded z-10 h-8 flex items-center justify-center
-    overflow-hidden group transition-all duration-300 ease-in-out
+          className={`absolute top-6 right-6 rounded z-10 inline-flex items-center justify-center overflow-hidden group transition-all duration-300 ease-in-out py-2 px-3 sm:pl-3 sm:group-hover:pr-3
+
     ${
       alreadyAdded
-        ? "bg-red-500 hover:bg-red-600 text-white px-3"
-        : "bg-amber-500 hover:bg-amber-600 text-white px-3"
+        ? "bg-red-500 hover:bg-red-600 text-white"
+        : "bg-amber-500 hover:bg-amber-600 text-white"
     }
   `}
         >
-          <span className="shrink-0">{alreadyAdded ? "−" : "+"}</span>
-          <span
-            className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 
-               transition-all duration-300 whitespace-nowrap text-xs"
-          >
+          <span className="shrink-0 leading-none">{alreadyAdded ? "−" : "+"}</span>
+
+          <span className="whitespace-nowrap leading-none text-sm sm:text-xs ml-2 sm:ml-0 sm:max-w-0 sm:overflow-hidden sm:group-hover:max-w-xs sm:group-hover:ml-2 sm:transition-all sm:duration-300">
             {alreadyAdded ? "Remove from exhibition" : "Add to exhibition"}
           </span>
         </button>
