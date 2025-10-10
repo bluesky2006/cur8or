@@ -37,13 +37,16 @@ export default function SearchBar({ handleSearch, loading }: SearchBarProps) {
                      transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed
                      flex items-center justify-center gap-2"
         >
-          {loading && (
-            <div
-              className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
-              aria-hidden="true"
-            />
-          )}
-          {loading ? "Searching…" : "Search"}
+          <span className="relative inline-flex items-center justify-center min-w-[80px]">
+            {loading ? (
+              <div
+                className="absolute w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+                aria-hidden="true"
+              />
+            ) : (
+              "Search"
+            )}
+          </span>{" "}
         </button>
       </div>
     </form>
