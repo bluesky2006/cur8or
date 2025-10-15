@@ -7,13 +7,11 @@ import type { NormalisedArtwork } from "../../types/artTypes";
 function interleave<T>(...arrays: T[][]): T[] {
   const result: T[] = [];
   const maxLength = Math.max(...arrays.map((a) => a.length));
-
   for (let i = 0; i < maxLength; i++) {
     arrays.forEach((arr) => {
       if (i < arr.length) result.push(arr[i]);
     });
   }
-
   return result;
 }
 
@@ -36,19 +34,31 @@ export async function searchAllMuseums(
       (async () => {
         try {
           const res = await aicSearchArtworks(query, 1, limit);
+
           const detailed = await Promise.all(
             res.map(async (item) => {
               try {
                 const detail = await aicFetchArtworkById(item.id);
-                return { ...item, ...detail };
+                const imageUrl = `https://www.artic.edu/iiif/2/${detail.image_id}/full/843,/0/default.jpg`;
+
+                // 🧠 Quick HEAD check to verify image actually exists
+                const headRes = await fetch(imageUrl, { method: "HEAD" });
+                const contentType = headRes.headers.get("content-type") || "";
+
+                if (!headRes.ok || !contentType.startsWith("image/")) {
+                  console.warn(`⚠️ Invalid AIC image for ID ${item.id} (${detail.title})`);
+                  return null;
+                }
+
+                return { ...item, ...detail, image_url: imageUrl };
               } catch (err) {
                 console.warn(`AIC detail fetch failed for id ${item.id}`, err);
-                return item;
+                return null;
               }
             })
           );
 
-          return detailed;
+          return detailed.filter(Boolean);
         } catch (err) {
           console.error("AIC search failed:", err);
           return [];
@@ -57,9 +67,18 @@ export async function searchAllMuseums(
     ]);
 
     const cmaResults = cmaRaw.map(cmaToNormalisedArtwork);
-    const aicResults = aicRaw.map(aicToNormalisedArtwork);
+    const aicResults = (aicRaw as any[]).map(aicToNormalisedArtwork);
 
-    return interleave(cmaResults, aicResults);
+    // Interleave + dedupe
+    const interleaved = interleave(cmaResults, aicResults);
+    const deduped = Array.from(new Map(interleaved.map((art) => [art.id, art])).values());
+
+    // Final sanity check: skip empty or non-image URLs
+    const withValidImages = deduped.filter(
+      (art) => art.imageUrl && art.imageUrl.startsWith("http")
+    );
+
+    return withValidImages;
   } catch (err) {
     console.error("Museum search failed:", err);
     return [];

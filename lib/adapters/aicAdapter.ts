@@ -14,7 +14,7 @@ export function aicToNormalisedArtwork(item: AICArtwork): NormalisedArtwork {
     date: item.date_display || "Unknown date",
     imageUrl: item.image_id
       ? `https://www.artic.edu/iiif/2/${item.image_id}/full/843,/0/default.jpg`
-      : "",
+      : null,
     artworkUrl: `https://www.artic.edu/artworks/${item.id}`,
   };
 }
