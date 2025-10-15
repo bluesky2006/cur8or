@@ -2,7 +2,7 @@ import { cmaSearchArtworks } from "./cma";
 import { cmaToNormalisedArtwork } from "../../lib/adapters/cmaAdapter";
 import { aicSearchArtworks, aicFetchArtworkById } from "./aic";
 import { aicToNormalisedArtwork } from "../../lib/adapters/aicAdapter";
-import type { NormalisedArtwork } from "../../types/artTypes";
+import type { NormalisedArtwork, AICArtwork, CMAArtwork } from "../../types/artTypes";
 
 function interleave<T>(...arrays: T[][]): T[] {
   const result: T[] = [];
@@ -22,16 +22,15 @@ export async function searchAllMuseums(
 ): Promise<NormalisedArtwork[]> {
   try {
     const [cmaRaw, aicRaw] = await Promise.all([
-      (async () => {
+      (async (): Promise<CMAArtwork[]> => {
         try {
-          const res = await cmaSearchArtworks(query, cmaSkip, limit);
-          return res;
+          return await cmaSearchArtworks(query, cmaSkip, limit);
         } catch (err) {
           console.error("CMA search failed:", err);
           return [];
         }
       })(),
-      (async () => {
+      (async (): Promise<AICArtwork[]> => {
         try {
           const res = await aicSearchArtworks(query, 1, limit);
 
@@ -58,7 +57,8 @@ export async function searchAllMuseums(
             })
           );
 
-          return detailed.filter(Boolean);
+          // Filter out nulls
+          return detailed.filter(Boolean) as AICArtwork[];
         } catch (err) {
           console.error("AIC search failed:", err);
           return [];
@@ -67,7 +67,7 @@ export async function searchAllMuseums(
     ]);
 
     const cmaResults = cmaRaw.map(cmaToNormalisedArtwork);
-    const aicResults = (aicRaw as any[]).map(aicToNormalisedArtwork);
+    const aicResults = aicRaw.map(aicToNormalisedArtwork);
 
     // Interleave + dedupe
     const interleaved = interleave(cmaResults, aicResults);
