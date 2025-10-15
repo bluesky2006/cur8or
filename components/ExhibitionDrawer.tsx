@@ -65,7 +65,7 @@ export default function ExhibitionDrawer({ show, onClose }: ExhibitionDrawerProp
             <>
               <p className="mt-2 mb-4">
                 You currently have {exhibition.length}
-                {exhibition.length === 1 ? "artwork" : "artworks"} in your exhibition.
+                {exhibition.length === 1 ? " artwork" : " artworks"} in your exhibition.
               </p>
 
               <DndContext
