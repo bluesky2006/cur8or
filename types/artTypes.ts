@@ -44,7 +44,7 @@ export type NormalisedArtwork = {
   artist: string;
   description: string;
   date: string;
-  imageUrl: string;
+  imageUrl: string | null;
   artworkUrl?: string;
 };
 
