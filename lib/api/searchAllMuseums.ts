@@ -40,7 +40,6 @@ export async function searchAllMuseums(
                 const detail = await aicFetchArtworkById(item.id);
                 const imageUrl = `https://www.artic.edu/iiif/2/${detail.image_id}/full/843,/0/default.jpg`;
 
-                // 🧠 Quick HEAD check to verify image actually exists
                 const headRes = await fetch(imageUrl, { method: "HEAD" });
                 const contentType = headRes.headers.get("content-type") || "";
 
@@ -57,7 +56,6 @@ export async function searchAllMuseums(
             })
           );
 
-          // Filter out nulls
           return detailed.filter(Boolean) as AICArtwork[];
         } catch (err) {
           console.error("AIC search failed:", err);
@@ -69,11 +67,9 @@ export async function searchAllMuseums(
     const cmaResults = cmaRaw.map(cmaToNormalisedArtwork);
     const aicResults = aicRaw.map(aicToNormalisedArtwork);
 
-    // Interleave + dedupe
     const interleaved = interleave(cmaResults, aicResults);
     const deduped = Array.from(new Map(interleaved.map((art) => [art.id, art])).values());
 
-    // Final sanity check: skip empty or non-image URLs
     const withValidImages = deduped.filter(
       (art) => art.imageUrl && art.imageUrl.startsWith("http")
     );

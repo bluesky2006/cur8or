@@ -1,4 +1,4 @@
-// 1. Raw API Shapes ----------------------------------------------------------
+// 1. API Types
 
 export interface CMAArtwork {
   id: string | number;
@@ -35,7 +35,7 @@ export interface AICArtwork {
   credit_line?: string;
 }
 
-// 2. Normalised Internal Model ----------------------------------------------
+// 2. Normalised Artwork Type
 
 export type NormalisedArtwork = {
   id: string;
@@ -48,16 +48,24 @@ export type NormalisedArtwork = {
   artworkUrl?: string;
 };
 
-// 3. Component Props ---------------------------------------------------------
+// 3. Component Props
 
 export interface ArtworkItemProps {
   art: NormalisedArtwork;
 }
+
 export interface ArtworkListProps {
   results: NormalisedArtwork[];
 }
+
 export interface ArtworkDetailModalProps {
   art: NormalisedArtwork;
+  onClose: () => void;
+}
+
+export interface ExhibitionArtworkModalProps {
+  exhibition: NormalisedArtwork[];
+  startIndex: number;
   onClose: () => void;
 }
 
@@ -84,15 +92,22 @@ export interface MyExhibitionButtonProps {
   onClick: () => void;
 }
 
-export type LogoHeaderProps = { resetSearch?: () => void; hasResults?: boolean };
-export type ExhibitionDrawerProps = { show: boolean; onClose: () => void };
+export type LogoHeaderProps = {
+  resetSearch?: () => void;
+  hasResults?: boolean;
+};
+
+export type ExhibitionDrawerProps = {
+  show: boolean;
+  onClose: () => void;
+};
 
 export type SortableItemProps = {
   art: NormalisedArtwork;
   removeFromExhibition: (id: string) => void; // 👈 match context
 };
 
-// 4. Context Types -----------------------------------------------------------
+// 4. Context Types
 
 export type ExhibitionContextType = {
   exhibition: NormalisedArtwork[];

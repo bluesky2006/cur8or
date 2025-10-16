@@ -80,7 +80,6 @@ export default function Header({ hasResults, exhibitionCount, onShowExhibition }
         {hasResults && (
           <div className="w-full max-w-6xl mx-auto flex flex-col sm:flex-row items-center sm:items-stretch justify-center sm:justify-between gap-4 p-4 text-center">
             <div className="flex-shrink-0">
-              {/* 🔁 Clicking logo now resets search */}
               <Logo resetSearch={resetSearch} hasResults={hasResults} />
             </div>
             <div className="w-full sm:flex-1 sm:max-w-2xl">
