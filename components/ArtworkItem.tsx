@@ -23,7 +23,7 @@ export default function ArtworkItem({ art }: ArtworkItemProps) {
           }
         }}
         aria-label={`View details of ${art.title} by ${art.artist}`}
-        className="p-4 rounded-lg shadow-xl bg-white flex flex-col cursor-pointer hover:shadow-2xl transition relative"
+        className="p-4 rounded-lg shadow-xl bg-white flex flex-col cursor-pointer  transition hover:-translate-y-1 relative"
       >
         <button
           onClick={(e) => {
