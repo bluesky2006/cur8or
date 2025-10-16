@@ -9,7 +9,6 @@ Curate your own virtual exhibition from real museum collections.
 ## ✨ Features
 
 - 🔍 Unified search across two museum APIs (Cleveland Museum of Art & Art Institute of Chicago)
-- 🖼️ Filter by image availability for cleaner browsing
 - 🖱️ Interactive exhibition view with hover overlays, artwork modals and CSS-styled picture frames for realistic presentation
 - ➕ Add or remove artworks to a personal exhibition collection
 - 🖐️ Sort artworks using drag and drop
@@ -100,7 +99,3 @@ The app will be available at `http://localhost:3000`.
 ├── types/
 │   └── artTypes.ts                 # TypeScript types
 ```
-
-## 📄 Licence
-
-MIT — free to use, remix and extend.
