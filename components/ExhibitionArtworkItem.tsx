@@ -4,9 +4,12 @@ import Image from "next/image";
 import { useState } from "react";
 import { ArtworkItemProps } from "../types/artTypes";
 import ExhibitionArtworkModal from "./ExhibitionArtworkModal";
+import { useExhibition } from "../context/ExhibitionContext";
 
 export default function ExhibitionArtworkItem({ art }: ArtworkItemProps) {
   const [showModal, setShowModal] = useState(false);
+  const { exhibition } = useExhibition();
+  const currentIndex = exhibition.findIndex((a) => a.id === art.id);
 
   return (
     <div
@@ -25,16 +28,10 @@ export default function ExhibitionArtworkItem({ art }: ArtworkItemProps) {
     >
       <div className="artwork-frame">
         {art.imageUrl ? (
-          <div
-            role="group"
-            aria-label={`${art.title} by ${art.artist}${art.date ? `, ${art.date}` : ""}`}
-            className="relative"
-          >
+          <div className="relative" role="group" aria-label={`${art.title} by ${art.artist}`}>
             <Image
               src={art.imageUrl}
-              alt={`${art.title} by ${art.artist || "Unknown artist"}${
-                art.date ? `, ${art.date}` : ""
-              }`}
+              alt={`${art.title} by ${art.artist}`}
               width={400}
               height={400}
               className="relative block w-[88%] mx-auto bg-white p-[6%] object-contain shadow-[inset_0_0.3em_0.1em_rgba(0,0,0,0.2)]"
@@ -46,16 +43,19 @@ export default function ExhibitionArtworkItem({ art }: ArtworkItemProps) {
             </div>
           </div>
         ) : (
-          <div
-            role="img"
-            aria-label={`No image available for ${art.title}`}
-            className="w-72 h-72 flex items-center justify-center bg-gray-200 text-gray-500 text-sm rounded"
-          >
+          <div className="w-72 h-72 flex items-center justify-center bg-gray-200 text-gray-500 text-sm rounded">
             No Image
           </div>
         )}
       </div>
-      {showModal && <ExhibitionArtworkModal art={art} onClose={() => setShowModal(false)} />}
+
+      {showModal && (
+        <ExhibitionArtworkModal
+          exhibition={exhibition}
+          startIndex={currentIndex}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 }
