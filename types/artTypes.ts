@@ -93,7 +93,7 @@ export interface MyExhibitionButtonProps {
 }
 
 export type LogoHeaderProps = {
-  resetSearch?: () => void;
+  resetSearch: () => void;
   hasResults?: boolean;
 };
 
