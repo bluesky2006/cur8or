@@ -10,7 +10,15 @@ export default function MyExhibitionPage() {
   const hasArtworks = exhibition.length > 0;
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div
+      className="
+        min-h-screen flex flex-col 
+        bg-gray-100 dark:bg-[#1a1a1a]
+        text-gray-900 dark:text-gray-100
+        transition-colors duration-700
+      "
+    >
+      {" "}
       <div className="pt-4 px-6 md:px-12">
         <div className="mb-4">
           <Link
@@ -25,7 +33,10 @@ export default function MyExhibitionPage() {
             </span>
           </Link>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 pb-8 border-b-2 border-gray-200">
+        <h1
+          className="text-2xl font-bold         text-gray-900 dark:text-gray-100
+ pb-8 border-b-2 border-gray-200"
+        >
           My Exhibition
         </h1>
         {!hasArtworks ? (

@@ -51,7 +51,9 @@ export default function Header({ hasResults, exhibitionCount, onShowExhibition }
     <div
       className={`${
         hasResults
-          ? `fixed top-0 left-0 w-full z-50 bg-white dark:bg-black ${scrolled ? "shadow" : ""}`
+          ? `fixed top-0 left-0 w-full z-50 bg-[#f9f9f9] dark:bg-[#1a1a1a] ${
+              scrolled ? "shadow" : ""
+            }`
           : "w-full"
       }`}
     >

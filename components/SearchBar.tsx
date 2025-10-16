@@ -24,7 +24,7 @@ export default function SearchBar({ handleSearch, loading }: SearchBarProps) {
           placeholder="Search artworks…"
           aria-label="Search artworks"
           disabled={loading}
-          className="flex-1 px-4 py-2 rounded-full bg-white dark:bg-black border  border-gray-300 focus:outline-none focus:border-amber-400 placeholder-gray-600 text-gray-600 focus:shadow-[0_0_20px_rgba(250,204,21,0.4)]  dark:placeholder-gray-400 dark:text-amber-400 transition-all duration-300 disabled:opacity-70  disabled:cursor-not-allowed"
+          className="flex-1 px-4 py-2 rounded-full bg-[#f9f9f9] dark:bg-black border  border-gray-300 focus:outline-none focus:border-amber-400 placeholder-gray-600 text-gray-600 focus:shadow-[0_0_20px_rgba(250,204,21,0.4)]  dark:placeholder-gray-400 dark:text-amber-400 transition-all duration-300 disabled:opacity-70  disabled:cursor-not-allowed"
         />
 
         <button
