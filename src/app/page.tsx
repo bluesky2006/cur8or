@@ -14,6 +14,7 @@ export default function Home() {
   const { query, results, setResults, hasSearched, setHasSearched } = useSearchContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [hasMore, setHasMore] = useState(true);
 
   const { exhibition } = useExhibition();
   const [showExhibition, setShowExhibition] = useState(false);
@@ -34,6 +35,7 @@ export default function Home() {
     try {
       const artworks = await searchAllMuseums(query, 0, 6);
       setResults(artworks);
+      setHasMore(artworks.length === 6);
     } catch (err) {
       console.error(err);
       setError("Something went wrong while searching.");
@@ -48,6 +50,7 @@ export default function Home() {
     try {
       const moreArtworks = await searchAllMuseums(query, results.length, 6);
       setResults([...results, ...moreArtworks]);
+      setHasMore(moreArtworks.length === 6);
     } catch (err) {
       console.error(err);
     } finally {
@@ -84,7 +87,7 @@ export default function Home() {
 
           <ArtworkList results={results} />
 
-          {hasResults && (
+          {hasResults && hasMore && (
             <div className="mt-6 flex justify-center">
               <button
                 onClick={loadMore}
@@ -95,6 +98,7 @@ export default function Home() {
               </button>
             </div>
           )}
+
           {hasResults && <Footer />}
         </main>
 
