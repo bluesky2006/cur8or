@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { ExhibitionArtworkModalProps } from "../types/artTypes";
 import { useExhibition } from "../context/ExhibitionContext";
 
@@ -13,6 +13,7 @@ export default function ExhibitionArtworkModal({
   const [currentIndex, setCurrentIndex] = useState(startIndex);
   const art = exhibition[currentIndex];
   const { removeFromExhibition } = useExhibition();
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   const goPrev = useCallback(() => {
     setCurrentIndex((i) => Math.max(0, i - 1));
@@ -22,6 +23,7 @@ export default function ExhibitionArtworkModal({
     setCurrentIndex((i) => Math.min(exhibition.length - 1, i + 1));
   }, [exhibition.length]);
 
+  // Handle keyboard shortcuts (Escape, arrows)
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -33,6 +35,49 @@ export default function ExhibitionArtworkModal({
     return () => window.removeEventListener("keydown", handleKey);
   }, [onClose, goPrev, goNext]);
 
+  // Trap focus inside modal
+  useEffect(() => {
+    const modal = modalRef.current;
+    if (!modal) return;
+
+    const focusableSelectors = [
+      "a[href]",
+      "button:not([disabled])",
+      "textarea:not([disabled])",
+      "input:not([disabled])",
+      "select:not([disabled])",
+      '[tabindex]:not([tabindex="-1"])',
+    ];
+    const focusableEls = modal.querySelectorAll<HTMLElement>(focusableSelectors.join(","));
+    const firstEl = focusableEls[0];
+    const lastEl = focusableEls[focusableEls.length - 1];
+
+    // focus first element on open
+    firstEl?.focus();
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      if (focusableEls.length === 0) return;
+
+      if (e.shiftKey) {
+        // shift + tab
+        if (document.activeElement === firstEl) {
+          e.preventDefault();
+          lastEl.focus();
+        }
+      } else {
+        // tab
+        if (document.activeElement === lastEl) {
+          e.preventDefault();
+          firstEl.focus();
+        }
+      }
+    };
+
+    modal.addEventListener("keydown", handleTab);
+    return () => modal.removeEventListener("keydown", handleTab);
+  }, []);
+
   const handleRemove = () => {
     removeFromExhibition(art.id);
     onClose();
@@ -40,10 +85,12 @@ export default function ExhibitionArtworkModal({
 
   return (
     <div
+      ref={modalRef}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm cursor-auto"
       role="dialog"
       aria-modal="true"
       onClick={onClose}
+      tabIndex={-1}
     >
       <button
         onClick={(e) => {
@@ -115,7 +162,7 @@ export default function ExhibitionArtworkModal({
             e.stopPropagation();
             handleRemove();
           }}
-          className="absolute bottom-8 z-[60]  hover:bg-red-700 text-white text-sm font-medium px-4 py-2 rounded transition-colors duration-200"
+          className="absolute bottom-8 z-[60] hover:bg-red-700 text-white text-sm font-medium px-4 py-2 rounded transition-colors duration-200"
         >
           Remove from exhibition
         </button>

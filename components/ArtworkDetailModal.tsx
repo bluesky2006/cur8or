@@ -6,9 +6,11 @@ import { useEffect, useRef } from "react";
 export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalProps) {
   const { exhibition, addToExhibition, removeFromExhibition } = useExhibition();
   const descRef = useRef<HTMLDivElement | null>(null);
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   const alreadyAdded = exhibition.some((a) => a.id === art.id);
 
+  // Open links in new tab
   useEffect(() => {
     if (!descRef.current) return;
     const links = descRef.current.querySelectorAll("a");
@@ -18,6 +20,7 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
     });
   }, [art.description]);
 
+  // Close on Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -25,6 +28,49 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
+
+  // Trap focus inside modal
+  useEffect(() => {
+    const modal = modalRef.current;
+    if (!modal) return;
+
+    const focusableSelectors = [
+      "a[href]",
+      "button:not([disabled])",
+      "textarea:not([disabled])",
+      "input:not([disabled])",
+      "select:not([disabled])",
+      '[tabindex]:not([tabindex="-1"])',
+    ];
+    const focusableEls = modal.querySelectorAll<HTMLElement>(focusableSelectors.join(","));
+    const firstEl = focusableEls[0];
+    const lastEl = focusableEls[focusableEls.length - 1];
+
+    // focus first element on open
+    firstEl?.focus();
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      if (focusableEls.length === 0) return;
+
+      if (e.shiftKey) {
+        // shift + tab
+        if (document.activeElement === firstEl) {
+          e.preventDefault();
+          lastEl.focus();
+        }
+      } else {
+        // tab
+        if (document.activeElement === lastEl) {
+          e.preventDefault();
+          firstEl.focus();
+        }
+      }
+    };
+
+    modal.addEventListener("keydown", handleTab);
+    return () => modal.removeEventListener("keydown", handleTab);
+  }, []);
 
   return (
     <div
@@ -36,8 +82,10 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
       onClick={onClose}
     >
       <div
-        className="bg-white rounded shadow-lg w-[95%] sm:w-full max-w-3xl aspect-[6/7] sm:aspect-auto sm:h-[80vh] overflow-hidden flex flex-col sm:flex-row relative"
+        ref={modalRef}
+        className="bg-white rounded shadow-lg w-[95%] sm:w-full max-w-3xl aspect-[6/7] sm:aspect-auto sm:h-[80vh] overflow-hidden flex flex-col sm:flex-row relative outline-none"
         onClick={(e) => e.stopPropagation()}
+        tabIndex={-1}
       >
         <button
           onClick={onClose}
@@ -46,6 +94,7 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
         >
           ✕
         </button>
+
         <div className="hidden sm:block w-1/2 relative bg-gray-100">
           {art.imageUrl ? (
             <Image src={art.imageUrl} alt={art.title} fill className="object-cover" />
@@ -55,6 +104,7 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
             </div>
           )}
         </div>
+
         <div className="w-full sm:w-1/2 p-6 flex flex-col justify-between h-full">
           <div>
             <h2 id={`title-${art.id}`}>{art.title}</h2>
@@ -67,6 +117,7 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
               dangerouslySetInnerHTML={{ __html: art.description }}
             />
           </div>
+
           <div className="w-full flex flex-col overflow-y-auto">
             {alreadyAdded ? (
               <button
