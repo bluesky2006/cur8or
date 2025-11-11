@@ -35,6 +35,7 @@ export default function ExhibitionArtworkItem({ art }: ArtworkItemProps) {
               width={400}
               height={400}
               className="relative block w-[88%] mx-auto bg-white p-[6%] object-contain shadow-[inset_0_0.3em_0.1em_rgba(0,0,0,0.2)]"
+              unoptimized
             />
             <div className="absolute inset-0 left-1/2 -translate-x-1/2 w-[88%] bg-gray-900/0 group-hover:bg-gray-900/50 transition-all duration-300 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 text-center text-white p-4">
               <p className="font-semibold text-lg leading-tight text-gray-100">{art.title}</p>

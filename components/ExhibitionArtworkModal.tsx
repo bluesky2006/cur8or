@@ -146,6 +146,7 @@ export default function ExhibitionArtworkModal({
               height={1800}
               className="max-h-[80vh] max-w-[95vw] w-auto -translate-y-4 h-auto object-contain rounded shadow-2xl transition-transform duration-300 ease-out"
               priority
+              unoptimized
             />
             <div className="block md:hidden mt-4 text-center text-white">
               <h2 className="font-semibold text-lg leading-tight">{art.title}</h2>

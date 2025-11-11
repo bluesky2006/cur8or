@@ -33,7 +33,7 @@ export default function SortableItem({ art, removeFromExhibition }: SortableItem
       <div className="flex gap-3 flex-1">
         {art.imageUrl ? (
           <div className="relative w-24 aspect-square flex-shrink-0 rounded overflow-hidden bg-gray-100">
-            <Image src={art.imageUrl} alt={art.title} fill className="object-cover" />
+            <Image src={art.imageUrl} alt={art.title} fill className="object-cover" unoptimized />
           </div>
         ) : (
           <div className="relative w-24 aspect-square flex-shrink-0 flex items-center justify-center bg-gray-200 text-xs text-gray-500 rounded">

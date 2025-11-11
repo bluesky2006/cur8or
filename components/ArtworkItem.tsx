@@ -59,6 +59,7 @@ export default function ArtworkItem({ art }: ArtworkItemProps) {
               alt={`${art.title} by ${art.artist}`}
               fill
               className="object-cover"
+              unoptimized
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-900 text-sm">

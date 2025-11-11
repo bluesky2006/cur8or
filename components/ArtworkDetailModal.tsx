@@ -97,7 +97,7 @@ export default function ArtworkDetailModal({ art, onClose }: ArtworkDetailModalP
 
         <div className="hidden sm:block w-1/2 relative bg-gray-100">
           {art.imageUrl ? (
-            <Image src={art.imageUrl} alt={art.title} fill className="object-cover" />
+            <Image src={art.imageUrl} alt={art.title} fill className="object-cover" unoptimized />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-900 text-sm">
               No image
