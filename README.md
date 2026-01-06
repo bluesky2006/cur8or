@@ -4,7 +4,7 @@ Curate your own virtual exhibition from real museum collections.
 
 **cur8or** is a virtual exhibition builder that lets users search, browse and curate artworks from major public collections. Designed for art lovers, students and curators-in-training, the app allows anyone to create a themed exhibition using open-access artworks from leading museums.
 
-- [Live demo](cur8or.vercel.app)
+- [Live demo](https://cur8or.vercel.app)
 
 ## ✨ Features
 
